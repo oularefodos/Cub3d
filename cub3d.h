@@ -30,9 +30,6 @@ typedef struct data {
 int     read_map(char* file, t_map *map);
 void    initialize_map(t_map *map);
 
-
-
-
 //get_next_line
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char  *s2);
@@ -45,6 +42,8 @@ int		str_len(const char *str);
 // utils
 char	**ft_split(const char *s, char c);
 char	*ft_strtrim(char *s1, char *set);
+char    *ft_concat(char *s1, char *s2);
+int check_map(t_map *map, char *str);
 
  
 #endif

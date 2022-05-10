@@ -16,6 +16,28 @@
 #include <stdlib.h>
 
 
+void ft_print(t_map *map)
+{
+
+    printf("%s\n", map->element.no[0]);
+    printf("%s", map->element.no[1]);
+    printf("--------------------------\n");
+    printf("%s\n", map->element.ea[0]);
+    printf("%s", map->element.ea[1]);
+    printf("--------------------------\n");
+    printf("%s\n", map->element.we[0]);
+    printf("%s", map->element.we[1]);
+    printf("--------------------------\n");
+    printf("%s\n", map->element.so[0]);
+    printf("%s", map->element.so[1]);
+    printf("--------------------------\n");
+    printf("%s\n", map->element.f[0]);
+    printf("%s", map->element.f[1]);
+    printf("--------------------------\n");
+    printf("%s\n", map->element.c[0]);
+    printf("%s", map->element.c[1]);
+}
+
 
 int check_extension(char *av)
 {
@@ -49,11 +71,7 @@ void    boot_cub3d(char **av, t_map *map)
         exit(0);
     }
     else
-    {
-         printf("sucess\n");
-
-    }
-       
+        printf("sucess\n");
 }
 
 int main(int ac, char **av)
@@ -66,28 +84,11 @@ int main(int ac, char **av)
 
     if (ac != 2)
     { 
-
         perror("Error arguments/n");
         exit(1);
     }
     boot_cub3d(av, map);
-
-            printf("%s\n", map->element.no[0]);
-            printf("%s", map->element.no[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.ea[0]);
-            printf("%s", map->element.ea[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.we[0]);
-            printf("%s", map->element.we[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.so[0]);
-            printf("%s", map->element.so[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.f[0]);
-            printf("%s", map->element.f[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.c[0]);
-            printf("%s", map->element.c[1]);
+    // ft_print(map);
+    free(map);
     return (0);
 }

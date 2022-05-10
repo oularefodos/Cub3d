@@ -3,7 +3,7 @@ NAME = cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c get_next_line.c get_next_line_utils.c util.c parser.c
+SRCS = main.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
 
 OBJS = 	$(SRCS:.c=.o)
 

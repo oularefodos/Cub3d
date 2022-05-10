@@ -26,7 +26,6 @@ int ft_size(char **spltd)
 
 void    initialize_map(t_map *map)
 {
-     
     map->element.no = 0;
     map->element.ea = 0;
     map->element.so = 0;
@@ -50,8 +49,6 @@ int    check_FC(char *line)
 
 void    assign_data(t_map **map, char **spltd)
 {
-    
- 
     if (strcmp(spltd[0], "NO") == 0)
         (*map)->element.no = spltd;
     else if (strcmp(spltd[0], "SO") == 0)
@@ -67,16 +64,12 @@ void    assign_data(t_map **map, char **spltd)
         else if(spltd[0][0] == 'C')
             (*map)->element.c = spltd;   
     }
-      
-    
 }
 
 int    check_line(char *line, t_map **map)
 {
     int j;
     char **spltd;
-
-
 
     if (strchr(line, ' '))
     {
@@ -89,7 +82,6 @@ int    check_line(char *line, t_map **map)
         {
             assign_data(map, spltd);
             return(1);
-
         }
     }
     return (0);   
@@ -101,46 +93,52 @@ int read_map(char* file, t_map *map)
     char    *line;
     int     fd;
     int     count;
+    char    *str;
+    char    *temp;
     
-
-     count = 0;
-
-
+    count = 0;
     initialize_map(map);
-
     fd = open(file, O_RDONLY);
     if (fd < 0)
         perror("fd error");
     line = get_next_line(fd);
+    str = NULL;
     while(line)
     {
         while (line[0] == '\n')
+        {
+            free(line);
             line = get_next_line(fd);
-        if(strchr(line, ' '))
+        }
+        if(strchr(line, ' ') && count < 6)
         {
             if(check_line(line, &map))
                 count++;
             else
             {
                 perror("ARG FORMAT ERROR/n");
-                exit(0);
+                exit(1);
             }
         }
-        else
+        else if (strchr(line, ' ') == NULL && count < 6)
         {
             perror("Error arg Elements\n");
-            exit(0);
+            exit(1);
         }
-        // // if (count == 6)
-        // // {
-        // //     //start handling map 
-        // // }
-        // else
-        //     perror("elemnts is not:");
+        if (count == 7)
+        {
+            temp = ft_concat(str, line);
+            free(str);
+            str = temp;
+        }
+        if (count == 6)
+            count++;
+        free(line);
         line = get_next_line(fd);
     }
-          
-            // // printf("--------------------------\n");
-
-    return(1);
+    check_map(map, str);
+    int x = -1;
+    while (map->buf[++x])
+        puts(map->buf[x]);
+    return (1);
 }
