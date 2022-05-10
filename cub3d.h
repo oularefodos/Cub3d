@@ -27,7 +27,7 @@ typedef struct data {
 
 
 //parsing 
-int     read_map(char* file);
+int     read_map(char* file, t_map *map);
 void    initialize_map(t_map *map);
 
 

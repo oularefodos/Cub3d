@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:34 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/10 10:07:29 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/10 11:12:35 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,17 @@ int    check_line(char *line, t_map **map)
     return (0);   
 }
 
-int read_map(char* file)
+int read_map(char* file, t_map *map)
 {
 
     char    *line;
     int     fd;
     int     count;
-    t_map *map;
+    
 
      count = 0;
 
-    map = (t_map *)malloc(sizeof(t_map));
-	if (!map)
-		return (0);
-    
+
     initialize_map(map);
 
     fd = open(file, O_RDONLY);
@@ -117,8 +114,8 @@ int read_map(char* file)
     line = get_next_line(fd);
     while(line)
     {
-        // if (line[0] == '\n')
-        //     continue;
+        while (line[0] == '\n')
+            line = get_next_line(fd);
         if(strchr(line, ' '))
         {
             if(check_line(line, &map))
@@ -134,30 +131,16 @@ int read_map(char* file)
             perror("Error arg Elements\n");
             exit(0);
         }
-        // if (count == 6)
-        // {
-        //     //start handling map 
-        // }
+        // // if (count == 6)
+        // // {
+        // //     //start handling map 
+        // // }
+        // else
+        //     perror("elemnts is not:");
         line = get_next_line(fd);
     }
-            printf("%s\n", map->element.no[0]);
-            printf("%s", map->element.no[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.ea[0]);
-            printf("%s", map->element.ea[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.we[0]);
-            printf("%s", map->element.we[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.so[0]);
-            printf("%s", map->element.so[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.f[0]);
-            printf("%s", map->element.f[1]);
-            printf("--------------------------\n");
-             printf("%s\n", map->element.c[0]);
-            printf("%s", map->element.c[1]);
-            printf("--------------------------\n");
+          
+            // // printf("--------------------------\n");
 
     return(1);
 }

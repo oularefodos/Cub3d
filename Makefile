@@ -8,7 +8,7 @@ SRCS = main.c get_next_line.c get_next_line_utils.c util.c parser.c
 OBJS = 	$(SRCS:.c=.o)
 
 .c.o:
-	$(CC) -g -Imlx -O2 -c $< -o $@
+	$(CC)  $< -o $@
 
 $(NAME): $(SRCS)
 	$(CC) $(SRCS) $(CFLAGS) $(NBNS) -o $(NAME)
