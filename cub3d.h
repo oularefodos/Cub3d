@@ -2,6 +2,9 @@
 #define CUB3D_H
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 typedef struct info {
     char **no;
@@ -19,7 +22,29 @@ typedef struct data {
     int width;
     int heigth;
     char **buf;
+    // struct data *next;
 }   t_map;
 
-// matrix 
+
+//parsing 
+int     read_map(char* file);
+void    initialize_map(t_map *map);
+
+
+
+
+//get_next_line
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *s1, char  *s2);
+char	*ft_strdup(char const *s1);
+int		ft_strchr(const char *s, int c);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+int		str_len(const char *str);
+# define BUFFER_SIZE 1000000
+
+// utils
+char	**ft_split(const char *s, char c);
+char	*ft_strtrim(char *s1, char *set);
+
+ 
 #endif
