@@ -4,31 +4,38 @@ int find_error(t_map *map)
 {
 	int x;
 	int y;
+	int n;
 
 	x = 0;
 	y = 0;
+	n = 0;
 	while (map->buf[y])
 	{
 		x = 0;
 		while (map->buf[y][x])
 		{
+			if (map->buf[y][0] == '\n')
+				return (1);
 			if (map->buf[y][x] == 'N' || map->buf[y][x] == 'W' 
 				|| map->buf[y][x] == 'E'|| map->buf[y][x] == 'S')
 			{
 				map->player_x = x;
 				map->player_y = y;
+				n++;
 			}
+			if (n > 1)
+				return (1);
 			if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32
 				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S' && map->buf[y][x] != '1')
 				return (1);
 			if (map->buf[y][x] == 32)
 			{
-				if (map->buf[y][x + 1] == '0' || (x != 0 && map->buf[y][x - 1] == '0')
-					|| (map->buf[y + 1] && map->buf[y + 1][x] == '0')
-					|| (y != 0 && map->buf[y - 1][x] == '0'))
+				if (map->buf[y][x + 1] != '0' || (x != 0 && map->buf[y][x - 1] != '0')
+					|| (map->buf[y + 1] && map->buf[y + 1][x] != '0')
+					|| (y != 0 && map->buf[y - 1][x] != '0'))
 					return (1);
 			}
-			if (map->buf[y][x] == '0' && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
+			if (map->buf[y][x] != '1' && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
 				return (1);
 			x++;
 		}
