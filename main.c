@@ -18,7 +18,6 @@
 
 void ft_print(t_map *map)
 {
-
     printf("%s\n", map->element.no[0]);
     printf("%s", map->element.no[1]);
     printf("--------------------------\n");
@@ -36,6 +35,18 @@ void ft_print(t_map *map)
     printf("--------------------------\n");
     printf("%s\n", map->element.c[0]);
     printf("%s", map->element.c[1]);
+}
+
+
+void ft_init(t_map *map)
+{
+    int pix = 0;
+    int lin = 0;
+    int d = 0;
+    map->mlx = mlx_init();
+    map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
+    map->img = mlx_new_image (map->mlx, map->width, map->heigth);
+    map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
 }
 
 
@@ -70,8 +81,6 @@ void    boot_cub3d(char **av, t_map *map)
         perror("error inside elements\n");
         exit(0);
     }
-    else
-        printf("sucess\n");
 }
 
 int main(int ac, char **av)
@@ -84,11 +93,28 @@ int main(int ac, char **av)
 
     if (ac != 2)
     { 
-        perror("Error arguments/n");
+        printf("Error arguments/n");
         exit(1);
     }
     boot_cub3d(av, map);
-    // ft_print(map);
-    free(map);
+    ft_init(map);
+    // for (int y = 0; map->buf[y]; y++)
+    // {
+    //     for (int x = 0; map->buf[y][x]; x++)
+    //     {
+    //         if (map->buf[y][x] == '1')
+    //         {
+    //             for (int i = 0; i < 32; i++)
+    //             {
+    //                 for (int y = 0; y < 32; y++)
+    //                 {
+    //                  map->img_buf[i * map->width + y] = 6552;
+    //                 }
+    //             }
+    //             mlx_put_image_to_window(map->mlx, map->win, map->img, x * 32, y *32);
+    //         }
+    //     }
+    // }
+    mlx_loop (map->mlx);
     return (0);
 }

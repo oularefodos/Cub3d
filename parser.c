@@ -107,7 +107,7 @@ int read_map(char* file, t_map *map)
     {
         while (line[0] == '\n')
         {
-            // free(line);
+            free(line);
             line = get_next_line(fd);
         }
         if(strchr(line, ' ') && count < 6)
@@ -133,7 +133,7 @@ int read_map(char* file, t_map *map)
         }
         if (count == 6)
             count++;
-        // free(line);
+        free(line);
         line = get_next_line(fd);
     }
     check_map(map, str);

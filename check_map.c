@@ -30,12 +30,12 @@ int find_error(t_map *map)
 				return (1);
 			if (map->buf[y][x] == 32)
 			{
-				if (map->buf[y][x + 1] != '0' || (x != 0 && map->buf[y][x - 1] != '0')
-					|| (map->buf[y + 1] && map->buf[y + 1][x] != '0')
-					|| (y != 0 && map->buf[y - 1][x] != '0'))
+				if (map->buf[y][x + 1] == '0' || (x != 0 && map->buf[y][x - 1] == '0')
+					|| (map->buf[y + 1] && map->buf[y + 1][x] == '0')
+					|| (y != 0 && map->buf[y - 1][x] == '0'))
 					return (1);
 			}
-			if (map->buf[y][x] != '1' && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
+			if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ') && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
 				return (1);
 			x++;
 		}
@@ -44,17 +44,20 @@ int find_error(t_map *map)
 	return (0);
 }
 
-char *ft_duplic(char *str, int len, int size)
+char *ft_duplic(char *str, int size)
 {
 	int i;
 	char *ret;
 
-	i = -1;
+	i = 0;
 	ret = malloc(sizeof(char) * (size + 1));
 	if (!ret)
 		return (0);
-	while (++i < len)
+	while (str[i] != '\n' && str[i] != '\0')
+	{
 		ret[i] = str[i];
+		i++;
+	}
 	while (i < size)
 		ret[i++] = ' ';
 	ret[i] = '\0';
@@ -69,7 +72,7 @@ char **getmap(char *str, int len, int nline)
 
 	i = 0;
 	m = 0;
-	buf = malloc(sizeof(char) * (nline + 1));
+	buf = malloc(sizeof(char *) * (nline + 1));
 	if (!buf)
 		return (NULL);
 	while (i < nline)
@@ -80,7 +83,7 @@ char **getmap(char *str, int len, int nline)
 			str++;
 			m++;
 		}
-		buf[i] = ft_duplic(str - m, m, len);
+		buf[i] = ft_duplic(str - m, len);
 		if (*str == '\n')
 			str++;
 		i++;
@@ -124,8 +127,8 @@ int check_map(t_map *map, char *str)
 
 	nline = 0;
 	len = maxlen(str, &nline);
-	map->heigth = nline;
-	map->width = len;
+	map->heigth = nline * 32;
+	map->width = len * 32;
 	map->buf = getmap(str, len, nline);
 	if (find_error(map))
 	{

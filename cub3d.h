@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "mlx.h"
 
 typedef struct info {
     char **no;
@@ -22,6 +23,10 @@ typedef struct data {
     int width;
     int heigth;
     char **buf;
+    void *mlx;
+    void *win;
+    void *img;
+    unsigned int *img_buf;
     // struct data *next;
 }   t_map;
 
