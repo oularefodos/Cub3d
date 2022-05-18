@@ -3,7 +3,7 @@ INCLUDE = cub3d.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror ./minilibx_opengl_20191021/libmlx.a -lmlx -framework OpenGL -framework AppKit
 
-SRCS = main.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
+SRCS = main.c  textures.c keys.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
 
 OBJS = 	$(SRCS:.c=.o)
 
@@ -11,7 +11,7 @@ OBJS = 	$(SRCS:.c=.o)
 	$(CC)  $< -o $@
 
 $(NAME): $(SRCS) 
-	$(CC) $(SRCS) $(CFLAGS) $(NBNS) -I$(INCLUDE)  -o $(NAME) 
+	$(CC) $(SRCS) $(CFLAGS)  -I$(INCLUDE)  -o $(NAME) 
 
 all:$(NAME)
 

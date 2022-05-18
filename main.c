@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/10 11:13:33 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:02:38 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,35 @@ void ft_print(t_map *map)
 }
 
 
-void ft_init(t_map *map)
+void    init_vecSide(t_map *map)
+{
+    map->vec.x = 0;
+	map->vec.y = 0;
+	map->vec.deltax = 0;
+	map->vec.deltay = 0;
+	map->vec.stepx = 0;
+	map->vec.stepy = 0;
+	map->vec.side = 0;
+	map->vec.camx = 0;
+	map->vec.mapx = 0;
+	map->vec.mapy = 0;
+}
+
+void init_tex(t_map *map)
+{
+    int	j;
+
+	j = -1;
+	while (++ j < 4)
+	{
+		map->tex[j].img = 0;
+		map->tex[j].addr = 0;
+		map->tex[j].height = 0;
+		map->tex[j].width = 0;
+	}
+
+}
+int ft_init(t_map *map)
 {
     int pix = 0;
     int lin = 0;
@@ -47,6 +75,17 @@ void ft_init(t_map *map)
     map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
     map->img = mlx_new_image (map->mlx, map->width, map->heigth);
     map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
+    
+	map->move.forw = 0;
+	map->move.back = 0;
+	map->move.right = 0;
+	map->move.left = 0;
+	map->move.rotright = 0;
+	map->move.rotleft = 0;
+    init_vecSide(map);
+    init_tex(map);
+
+    return(1);
 }
 
 
@@ -83,6 +122,19 @@ void    boot_cub3d(char **av, t_map *map)
     }
 }
 
+
+
+
+
+
+void start_game(t_map *map)
+{
+    mlx_hook(map->win, 2, 1L<<0, key_press, map);
+    //mlx_loop_hook (drawing 3d)
+    mlx_hook(map->win, 3, 1L<<1, key_release, map);
+
+
+}
 int main(int ac, char **av)
 {
     t_map *map;
@@ -97,7 +149,18 @@ int main(int ac, char **av)
         exit(1);
     }
     boot_cub3d(av, map);
-    ft_init(map);
+    if (!ft_init(map))
+        {
+            perror("initialization erro ");
+            exit(1);
+        }
+    // if (!add_text_img(map))
+    // {
+    //     perror("texture_error");
+    //     exit(1);
+    // } 
+
+
     // for (int y = 0; map->buf[y]; y++)
     // {
     //     for (int x = 0; map->buf[y][x]; x++)
@@ -108,13 +171,18 @@ int main(int ac, char **av)
     //             {
     //                 for (int y = 0; y < 32; y++)
     //                 {
-    //                  map->img_buf[i * map->width + y] = 6552;
+    //                  map->img_buf[i * map->width + y] = 655555552;
     //                 }
     //             }
     //             mlx_put_image_to_window(map->mlx, map->win, map->img, x * 32, y *32);
     //         }
     //     }
     // }
+
+    start_game(map);
     mlx_loop (map->mlx);
+    
+   
+
     return (0);
 }

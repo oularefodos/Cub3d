@@ -5,6 +5,17 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define RIGHT_KEY 65363
+# define LEFT_KEY 65361
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define Q_KEY 12
+# define ESC_KEY 53
+
 #include "mlx.h"
 
 typedef struct info {
@@ -16,8 +27,53 @@ typedef struct info {
     char **c;
 } t_info;
 
+typedef struct s_move {
+
+    int			forw;
+	int			back;
+	int			left;
+	int			right;
+	int			rotleft;
+	int			rotright;
+    
+}t_move;
+
+typedef struct s_vec
+{
+	double		x;
+	double		y;
+	double		deltax;
+	double		deltay;
+	int			stepx;
+	int			stepy;
+	int			side;
+	double		camx;
+	int			mapx;
+	int			mapy;
+
+}t_vec;
+
+typedef struct s_tex
+{
+	void		*img;
+	int			*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			height;
+	int			width;
+
+}t_tex;
+
 typedef struct data {
-    t_info element;
+    t_info  element;
+    t_move  move;
+    t_vec   vec;
+    t_info  texInfo;
+
+    t_tex tex[5];
+
+
     int player_x;
     int player_y;
     int width;
@@ -27,7 +83,7 @@ typedef struct data {
     void *win;
     void *img;
     unsigned int *img_buf;
-    // struct data *next;
+    
 }   t_map;
 
 
@@ -50,5 +106,11 @@ char	*ft_strtrim(char *s1, char *set);
 char    *ft_concat(char *s1, char *s2);
 int check_map(t_map *map, char *str);
 
+//hooks_keys
+int key_press(int keycode,t_map *map);
+int	key_release(int keycode, t_map *map);
+
+//texture
+int add_text_img(t_map *map);
  
 #endif
