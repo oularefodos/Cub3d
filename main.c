@@ -68,20 +68,12 @@ void init_tex(t_map *map)
 }
 int ft_init(t_map *map)
 {
-    int pix = 0;
-    int lin = 0;
-    int d = 0;
-    // map->mlx = mlx_init();
+    map->mlx = mlx_init();
     map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
-    map->img = mlx_new_image (map->mlx, map->width, map->heigth);
-    map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
-    
 
     map->fov = 60;
     map->player_angle = 90;
     
-
-
 	map->move.forw = 0;
 	map->move.back = 0;
 	map->move.right = 0;
@@ -185,7 +177,7 @@ int main(int ac, char **av)
     //     }
     // }
     raycaster(map);
-    mlx_hook(map->win, 2, 1L<<0, key_press, map);
+    mlx_hook(map->win, 2, 0, key_press, map);
     //mlx_loop_hook (drawing 3d)
     // mlx_hook(map->win, 3, 1L<<1, key_release, map);
 

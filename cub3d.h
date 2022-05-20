@@ -82,8 +82,8 @@ typedef struct data {
 	int fov;
 	int player_angle;
 
-    int player_x;
-    int player_y;
+    double player_x;
+    double player_y;
     int width;
     int heigth;
     char **buf;
@@ -125,6 +125,7 @@ void ft_print(t_map *map);
 
 
 void	raycaster(t_map *map);
+double to_radian(double angle);
 
 
 

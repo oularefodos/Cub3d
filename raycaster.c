@@ -29,7 +29,6 @@ void draw3d(t_map *map, double dist, int x)
 		start++;
 	}
 	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
-    puts(";;;;;;;;");
 }
 
 void	raycaster(t_map *map)
@@ -38,11 +37,14 @@ void	raycaster(t_map *map)
 	int i;
 	int y;
 	double dist;
+	int lin; int pix; int d;
 	double incre;
 
 	i = 0;
 	incre = (double)map->fov / (double)map->width;
 	ray_angle = map->player_angle - map->fov;
+	map->img = mlx_new_image (map->mlx, map->width, map->heigth);
+    map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
 	while (i < map->width)
 	{
 		y = 0;
@@ -53,12 +55,10 @@ void	raycaster(t_map *map)
 			map->ray_x += cos(to_radian(ray_angle)) / 64;
 			map->ray_y += sin(to_radian(ray_angle)) / 64;
 		}
-        
 		dist = sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y));
 		dist = dist * cos(to_radian(ray_angle - map->player_angle));
 		draw3d(map, dist, i);
 		ray_angle += incre;
 		i++;
 	}
-    puts("....0000");
 }

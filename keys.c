@@ -23,22 +23,37 @@ void free_game(t_map *map)
  
 int key_press(int keycode,t_map *map)
 {
-   if (keycode == RIGHT_KEY)
-		map->player_angle += 10;
-	else if (keycode == LEFT_KEY)
-		map->player_angle -= 10;
-	else  if (keycode == A_KEY && map->buf[map->player_y][map->player_x - 1] != '1')
-		map->player_x--;
-	else if ((keycode == S_KEY || keycode == DOWN_KEY) && (map->buf[map->player_y + 1][map->player_x] != '1'))
-		map->player_y++;
-	else if (keycode == D_KEY && map->buf[map->player_y][map->player_x + 1] != '1')
-		map->player_x++;
-	else if ((keycode == W_KEY || keycode == UP_KEY) && (map->buf[map->player_y - 1][map->player_x] != '1')) 
-		map->player_y--;
-	else if (keycode == Q_KEY || keycode == ESC_KEY)
-		free_game(map);
-	else
-		return (0);
+	double x;
+	double y;
+
+	x = cos(to_radian(map->player_angle)) * 0.5;
+	y = sin(to_radian(map->player_angle)) * 0.5;
+	printf ("%d\n", map->player_angle);
+   	if (keycode == 123)
+	{
+		if (map->player_angle == 0)
+			map->player_angle = 360;
+		else
+			map->player_angle -= 10;
+	}
+	if (keycode == 124)
+	{
+		if (map->player_angle == 380)
+			map->player_angle = 0;
+		else
+			map->player_angle += 10;
+	}
+	if (keycode == 13 && map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)] != '1')
+	{
+		map->player_x += x;
+		map->player_y += y;
+	}
+	if (keycode == 1 && map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)] != '1')
+	{
+		map->player_x -= x;
+		map->player_y -= y;
+	}
+	mlx_clear_window(map->mlx, map->win);
     raycaster(map);
 	return (1);
 }

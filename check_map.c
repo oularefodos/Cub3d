@@ -127,8 +127,8 @@ int check_map(t_map *map, char *str)
 
 	nline = 0;
 	len = maxlen(str, &nline);
-	map->heigth = nline * 64;
-	map->width = len * 64;
+	map->heigth = 640;
+	map->width =  640;
 	map->buf = getmap(str, len, nline);
 	if (find_error(map))
 	{
