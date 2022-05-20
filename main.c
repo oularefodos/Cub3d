@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/18 18:02:38 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/20 10:41:23 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,17 @@ int ft_init(t_map *map)
     int pix = 0;
     int lin = 0;
     int d = 0;
-    map->mlx = mlx_init();
+    // map->mlx = mlx_init();
     map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
     map->img = mlx_new_image (map->mlx, map->width, map->heigth);
     map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
     
+
+    map->fov = 60;
+    map->player_angle = 90;
+    
+
+
 	map->move.forw = 0;
 	map->move.back = 0;
 	map->move.right = 0;
@@ -127,14 +133,12 @@ void    boot_cub3d(char **av, t_map *map)
 
 
 
-void start_game(t_map *map)
-{
-    mlx_hook(map->win, 2, 1L<<0, key_press, map);
-    //mlx_loop_hook (drawing 3d)
-    mlx_hook(map->win, 3, 1L<<1, key_release, map);
+// void start_game(t_map *map)
+// {
+    
 
 
-}
+// }
 int main(int ac, char **av)
 {
     t_map *map;
@@ -149,11 +153,13 @@ int main(int ac, char **av)
         exit(1);
     }
     boot_cub3d(av, map);
+    map->mlx = mlx_init();
     if (!ft_init(map))
         {
             perror("initialization erro ");
             exit(1);
         }
+   
     // if (!add_text_img(map))
     // {
     //     perror("texture_error");
@@ -178,8 +184,12 @@ int main(int ac, char **av)
     //         }
     //     }
     // }
+    raycaster(map);
+    mlx_hook(map->win, 2, 1L<<0, key_press, map);
+    //mlx_loop_hook (drawing 3d)
+    // mlx_hook(map->win, 3, 1L<<1, key_release, map);
 
-    start_game(map);
+    // start_game(map);
     mlx_loop (map->mlx);
     
    

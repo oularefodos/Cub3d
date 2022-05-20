@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:34 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/10 11:12:35 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:09:06 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,30 @@ int    check_FC(char *line)
         return(0);
 }
 
+// char    *rm_bs(char *str)
+// {
+//     int i = str_len(str);
+
+//     char *new = malloc(sizeof(char) * i);
+//     if(!new)
+//         exit(0);
+//    i--;
+//    new[i] = 0;
+//    while(--i >= 0)
+//    {
+//        new[i] = str[i];
+//    }
+//     return(new);
+// }
+
+
 
 void    assign_data(t_map **map, char **spltd)
 {
     if (strcmp(spltd[0], "NO") == 0)
+    {
         (*map)->element.no = spltd;
+    }
     else if (strcmp(spltd[0], "SO") == 0)
         (*map)->element.so = spltd;
     else if (strcmp(spltd[0], "WE") == 0)

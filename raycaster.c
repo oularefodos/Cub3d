@@ -1,0 +1,64 @@
+#include "cub3d.h"
+
+double to_radian(double angle)
+{
+	return (angle * PI / 180);
+}
+
+double power(double x)
+{
+	return (x  * x);
+}
+
+void draw3d(t_map *map, double dist, int x)
+{
+	int wall_h;
+	int start;
+	int end;
+
+	wall_h = floor(map->heigth / dist);
+	start = -wall_h / 2 + map->heigth / 2;
+	if(start < 0)
+		start = 0;
+	end = wall_h / 2 + map->heigth / 2;
+    if(end >= map->heigth)
+		end = map->heigth - 1;
+	while (start < end)
+	{
+		map->img_buf[start * map->width + x] = 6544552;
+		start++;
+	}
+	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
+    puts(";;;;;;;;");
+}
+
+void	raycaster(t_map *map)
+{
+	double ray_angle;
+	int i;
+	int y;
+	double dist;
+	double incre;
+
+	i = 0;
+	incre = (double)map->fov / (double)map->width;
+	ray_angle = map->player_angle - map->fov;
+	while (i < map->width)
+	{
+		y = 0;
+		map->ray_x = map->player_x;
+    	map->ray_y = map->player_y;
+		while (map->buf[(int)map->ray_y][(int)map->ray_x] != '1')
+		{
+			map->ray_x += cos(to_radian(ray_angle)) / 64;
+			map->ray_y += sin(to_radian(ray_angle)) / 64;
+		}
+        
+		dist = sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y));
+		dist = dist * cos(to_radian(ray_angle - map->player_angle));
+		draw3d(map, dist, i);
+		ray_angle += incre;
+		i++;
+	}
+    puts("....0000");
+}

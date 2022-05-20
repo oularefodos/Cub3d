@@ -5,16 +5,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-# define UP_KEY 65362
-# define DOWN_KEY 65364
-# define RIGHT_KEY 65363
-# define LEFT_KEY 65361
+
+#include <math.h>
+# define UP_KEY 126
+# define DOWN_KEY 125
+# define RIGHT_KEY 123
+# define LEFT_KEY 124
 # define W_KEY 119
 # define A_KEY 97
 # define S_KEY 115
 # define D_KEY 100
 # define Q_KEY 12
 # define ESC_KEY 53
+
+# define PI 3.14159265359
 
 #include "mlx.h"
 
@@ -73,6 +77,10 @@ typedef struct data {
 
     t_tex tex[5];
 
+	double ray_x;
+	double ray_y;
+	int fov;
+	int player_angle;
 
     int player_x;
     int player_y;
@@ -112,5 +120,12 @@ int	key_release(int keycode, t_map *map);
 
 //texture
 int add_text_img(t_map *map);
- 
+char    *rm_bs(char *str);
+void ft_print(t_map *map);
+
+
+void	raycaster(t_map *map);
+
+
+
 #endif
