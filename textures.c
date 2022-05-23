@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/19 16:50:56 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:08:56 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,21 @@ int add_text_img(t_map *map)
     //     j++;
     // }
     // exit(0);
-    // while(i < 4)
-    // {
+    while(i < 4)
+    {
+        map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
+        if (!map->tex[i].img)
+            return(free_window(map));
+        map->tex[i].addr = (int *)mlx_get_data_addr(map->tex[i].img, &map->tex[i].bits_per_pixel, &map->tex[i].line_length, &map->tex[i].endian);   
+        if (!map->tex[i].addr)
+            return(free_window(map));
+        i++;
         
-
-    //     map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
-    //     if (!map->tex[i].img)
-    //         return(free_window(map));
-    //     map->tex[i].addr = (int *)mlx_get_data_addr(map->tex[i].img, &map->tex[i].bits_per_pixel, &map->tex[i].line_length, &map->tex[i].endian);   
-    //     if (!map->tex[i].addr)
-    //         return(free_window(map));
-    //     i++;
-        
-    // }
+    }
      return(1);
  
 }
+
+
+
 

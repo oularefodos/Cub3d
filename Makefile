@@ -3,7 +3,7 @@ INCLUDE = cub3d.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror ./minilibx_opengl_20191021/libmlx.a -lmlx -framework OpenGL -framework AppKit
 
-SRCS = main.c  textures.c raycaster.c keys.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
+SRCS = main.c movements.c textures.c raycaster.c keys.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
 
 OBJS = 	$(SRCS:.c=.o)
 

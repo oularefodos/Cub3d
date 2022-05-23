@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/20 10:41:23 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:56:26 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void init_tex(t_map *map)
 }
 int ft_init(t_map *map)
 {
-    map->mlx = mlx_init();
-    map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
+    
+   
 
     map->fov = 60;
     map->player_angle = 90;
@@ -146,17 +146,18 @@ int main(int ac, char **av)
     }
     boot_cub3d(av, map);
     map->mlx = mlx_init();
+     map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
     if (!ft_init(map))
         {
             perror("initialization erro ");
             exit(1);
         }
    
-    // if (!add_text_img(map))
-    // {
-    //     perror("texture_error");
-    //     exit(1);
-    // } 
+    if (!add_text_img(map))
+    {
+        perror("texture_error");
+        exit(1);
+    } 
 
 
     // for (int y = 0; map->buf[y]; y++)
@@ -178,10 +179,12 @@ int main(int ac, char **av)
     // }
     raycaster(map);
     mlx_hook(map->win, 2, 0, key_press, map);
-    //mlx_loop_hook (drawing 3d)
-    // mlx_hook(map->win, 3, 1L<<1, key_release, map);
 
-    // start_game(map);
+    // move_backforwards(map);
+    // //mlx_loop_hook (drawing 3d)
+    // // mlx_hook(map->win, 3, 1L<<1, key_release, map);
+
+    // // start_game(map);
     mlx_loop (map->mlx);
     
    

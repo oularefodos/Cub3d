@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:10:07 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/20 11:03:48 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:03:04 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ int key_press(int keycode,t_map *map)
 {
 	double x;
 	double y;
+	int newX;
+	int newY;
+	int D;
+	int	E;
 
 	x = cos(to_radian(map->player_angle)) * 0.5;
 	y = sin(to_radian(map->player_angle)) * 0.5;
@@ -43,20 +47,40 @@ int key_press(int keycode,t_map *map)
 		else
 			map->player_angle += 10;
 	}
-	if (keycode == 13 && map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)] != '1')
+	if (keycode == W_KEY && map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)] != '1')//up
 	{
-		map->player_x += x;
-		map->player_y += y;
+		D = map->player_x + x;
+		E = map-> player_y + y;
+
+		if (map->buf[(int)floor(E)][(int)floor(D)] == '0')
+		{
+			map->player_x += x;
+			map->player_y += y;
+		}
+	
 	}
-	if (keycode == 1 && map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)] != '1')
+	if (keycode == S_KEY && map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)] != '1') // down 
 	{
-		map->player_x -= x;
-		map->player_y -= y;
+		newX = map->player_x - x;
+		newY = map-> player_y - y;
+		
+		if (map->buf[(int)floor(newY)][(int)floor(newX)] == '0')
+		{
+			map->player_x -= x;
+			map->player_y -= y;
+		}
+		
 	}
+	else 
+		return (0);
 	mlx_clear_window(map->mlx, map->win);
     raycaster(map);
 	return (1);
 }
+
+
+
+
 
 // int	key_release(int keycode, t_map *map)
 // {
