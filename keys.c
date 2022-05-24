@@ -32,12 +32,12 @@ int key_press(int keycode,t_map *map)
 		map->player_angle -= 10;
 	else if (keycode == 124)
 		map->player_angle += 10;
-	else if (keycode == 13 && ft_pos(map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)]))//up
+	else if (keycode == 13 && ft_pos(map->buf[(int)floor(map->player_y + y)][(int)floor(map->player_x + x)]))//up
 	{
 			map->player_x += x;
 			map->player_y += y;
 	}
-	else if (keycode == 1 && ft_pos(map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)]))
+	else if (keycode == 1 && ft_pos(map->buf[(int)floor(map->player_y - y)][(int)floor(map->player_x - x)]))
 	{
 			map->player_x -= x;
 			map->player_y -= y;

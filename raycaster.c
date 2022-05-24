@@ -43,19 +43,17 @@ void	raycaster(t_map *map)
 {
 	double ray_angle;
 	int i;
-	int y;
 	double dist;
 	int lin; int pix; int d;
 	double incre;
 
 	i = 0;
-	incre = (double)map->fov / (double)map->width; //distance between rays 
-	ray_angle = map->player_angle - (map->fov / 2); // start at 30 degree for the initial ray casting 0 column 
+	incre = (double)map->fov / (double)map->width;//distance between rays 
+	ray_angle = map->player_angle - (map->fov / 2);// start at 30 degree for the initial ray casting 0 column 
 	map->img = mlx_new_image (map->mlx, map->width, map->heigth);
     map->img_buf = (unsigned int *)mlx_get_data_addr (map->img, &pix, &lin, &d);
 	while (i < map->width)
 	{
-		y = 0;
 		map->ray_x = map->player_x;
     	map->ray_y = map->player_y;
 		while (ft_pos(map->buf[(int)map->ray_y][(int)map->ray_x])) // ray direction 

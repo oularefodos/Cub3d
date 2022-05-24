@@ -72,7 +72,7 @@ int ft_init(t_map *map)
    
 
     map->fov = 60;
-    map->player_angle = 90;
+    map->player_angle = 0;
     
 	map->move.forw = 0;
 	map->move.back = 0;
