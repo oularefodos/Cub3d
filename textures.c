@@ -77,9 +77,8 @@ int add_text_img(t_map *map)
         if (!map->tex[i].addr)
             return(free_window(map));
         i++;
-        
     }
-     return(1);
+    return(1);
  
 }
 

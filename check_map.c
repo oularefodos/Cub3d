@@ -1,5 +1,21 @@
 #include "cub3d.h"
 
+int ft_pos(char c)
+{
+	char *str;
+	int i;
+
+	i = 0;
+	str = "0NWSE";
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int find_error(t_map *map)
 {
 	int x;
@@ -23,16 +39,14 @@ int find_error(t_map *map)
 				map->player_y = y;
 				n++;
 			}
-			if (n > 1)
-				return (1);
 			if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32
 				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S' && map->buf[y][x] != '1')
 				return (1);
 			if (map->buf[y][x] == 32)
 			{
-				if (map->buf[y][x + 1] == '0' || (x != 0 && map->buf[y][x - 1] == '0')
-					|| (map->buf[y + 1] && map->buf[y + 1][x] == '0')
-					|| (y != 0 && map->buf[y - 1][x] == '0'))
+				if (ft_pos(map->buf[y][x + 1])|| (x != 0 && ft_pos(map->buf[y][x - 1]))
+					|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
+					|| (y != 0 && ft_pos(map->buf[y - 1][x])))
 					return (1);
 			}
 			if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ') && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
@@ -41,6 +55,8 @@ int find_error(t_map *map)
 		}
 		y++;
 	}
+	if (n != 1)
+		return (1);
 	return (0);
 }
 
@@ -127,8 +143,8 @@ int check_map(t_map *map, char *str)
 
 	nline = 0;
 	len = maxlen(str, &nline);
-	map->heigth = 640;
-	map->width =  640;
+	map->heigth = 640 * 2;
+	map->width =  1000;
 	map->buf = getmap(str, len, nline);
 	if (find_error(map))
 	{

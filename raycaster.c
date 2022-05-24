@@ -7,28 +7,36 @@ double to_radian(double angle)
 
 double power(double x)
 {
-	return (x  * x);
+	return (x * x);
 }
 
 void draw3d(t_map *map, double dist, int x)
 {
 	int wall_h;
 	int start;
-	int end;
-
 	wall_h = floor((map->heigth/2) / dist); //divide by halfheight
-	start = -wall_h / 2 + map->heigth / 2;
-	if(start < 0)
-		start = 0;
-	end = wall_h / 2 + map->heigth / 2;
-    if(end >= map->heigth)
-		end = map->heigth - 1;
-	while (start < end)
+	start = 0;
+	while (start < floor(map->heigth/2) - wall_h)
 	{
+		if (start * map->width + x >= map->heigth * map->width)
+			break;
+		map->img_buf[start * map->width + x] = 4758;
+		start++;
+	}
+	while (start < floor(map->heigth/2) + wall_h)
+	{
+		if (start * map->width + x >= map->heigth * map->width)
+			break;
 		map->img_buf[start * map->width + x] = 6544552;
 		start++;
 	}
-	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
+	while (start < map->heigth)
+	{
+		if (start * map->width + x >= map->heigth * map->width)
+			break;
+		map->img_buf[start * map->width + x] = 4745558;
+		start++;
+	}
 }
 
 void	raycaster(t_map *map)
@@ -50,10 +58,10 @@ void	raycaster(t_map *map)
 		y = 0;
 		map->ray_x = map->player_x;
     	map->ray_y = map->player_y;
-		while (map->buf[(int)map->ray_y][(int)map->ray_x] != '1') // ray direction 
+		while (ft_pos(map->buf[(int)map->ray_y][(int)map->ray_x])) // ray direction 
 		{
-			map->ray_x += cos(to_radian(ray_angle)) / 64; // deltax and delta y gride size
-			map->ray_y += sin(to_radian(ray_angle)) / 64;
+			map->ray_x += cos(to_radian(ray_angle)) / 566; // deltax and delta y gride size
+			map->ray_y += sin(to_radian(ray_angle)) / 566;
 		}
 		dist = sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y)); //using floor 
 		dist = dist * cos(to_radian(ray_angle - map->player_angle));// ?
@@ -61,4 +69,5 @@ void	raycaster(t_map *map)
 		ray_angle += incre;
 		i++;
 	}
+	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
 }

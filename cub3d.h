@@ -129,5 +129,8 @@ double to_radian(double angle);
 
 
 void	move_backforwards(t_map *map);
+char	*ft_itoa(int n);
+
+int ft_pos(char c); // check "0NWSN"
 
 #endif
