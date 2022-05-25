@@ -14,6 +14,7 @@ void draw3d(t_map *map, double dist, int x)
 {
 	int wall_h;
 	int start;
+	int y = 0;
 	wall_h = floor((map->heigth/2) / dist); //divide by halfheight
 	start = 0;
 	while (start < floor(map->heigth/2) - wall_h)
@@ -23,12 +24,14 @@ void draw3d(t_map *map, double dist, int x)
 		map->img_buf[start * map->width + x] = 4758;
 		start++;
 	}
+	y = 0;
 	while (start < floor(map->heigth/2) + wall_h)
 	{
 		if (start * map->width + x >= map->heigth * map->width)
 			break;
-		map->img_buf[start * map->width + x] = 6544552;
+		map->img_buf[start * map->width + x] = (unsigned int)map->tex[3].addr[(y % map->tex[3].height) * map->tex[3].width + (x % map->tex[3].width)];
 		start++;
+		y += 1;
 	}
 	while (start < map->heigth)
 	{
@@ -67,5 +70,6 @@ void	raycaster(t_map *map)
 		ray_angle += incre;
 		i++;
 	}
+
 	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
 }

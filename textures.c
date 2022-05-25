@@ -51,23 +51,13 @@ int add_text_img(t_map *map)
 
     char    *p[5];
     int     i;
-    
 
     i = 0;
-
-    
-     p[0] = rem_bs(map->element.no[1]);
-     p[1] = rem_bs(map->element.so[1]);
-     p[2] = rem_bs(map->element.we[1]);
-     p[3] = rem_bs(map->element.ea[1]);
-     p[4] = 0;
-    //  int j = 0;
-    // while(j < 4)
-    // {
-    //     printf("|%s|\n", p[j]);
-    //     j++;
-    // }
-    // exit(0);
+    p[0] = rem_bs(map->element.no[1]);
+    p[1] = rem_bs(map->element.so[1]);
+    p[2] = rem_bs(map->element.we[1]);
+    p[3] = rem_bs(map->element.ea[1]);
+    p[4] = NULL;
     while(i < 4)
     {
         map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
@@ -79,7 +69,6 @@ int add_text_img(t_map *map)
         i++;
     }
     return(1);
- 
 }
 
 
