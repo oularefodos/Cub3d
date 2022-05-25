@@ -6,11 +6,12 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/22 17:08:56 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:30:40 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <fcntl.h>
 
 int	free_window(t_map *map)
 {
@@ -50,7 +51,9 @@ int add_text_img(t_map *map)
 {
 
     char    *p[5];
+    // char    *p1[5];
     int     i;
+    // char *config;
 
     i = 0;
     p[0] = rem_bs(map->element.no[1]);
@@ -58,6 +61,34 @@ int add_text_img(t_map *map)
     p[2] = rem_bs(map->element.we[1]);
     p[3] = rem_bs(map->element.ea[1]);
     p[4] = NULL;
+    // p1[0] = rem_bs(map->element.no[0]);
+    // p1[1] = rem_bs(map->element.so[0]);
+    // p1[2] = rem_bs(map->element.we[0]);
+    // p1[3] = rem_bs(map->element.ea[0]);
+    // p1[4] = NULL;
+    // while(i < 4)
+    // {
+    //     int j =0;
+    //     config = p1[i];
+    //     int count = 0;
+    //     while(j < 4)
+    //     {
+    //         if (strcmp(config, p1[j]) == 0)
+    //         {
+    //             count++;
+    //         }
+    //         if (count > 1)
+    //             {
+    //                 perror("double");
+    //                 exit(-1);
+    //             }
+    //         else
+    //         j++;
+    //     }
+    //     i++;
+    // }
+    i = 0;
+    
     while(i < 4)
     {
         map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);

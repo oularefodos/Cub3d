@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:34 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/19 15:09:06 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:48:14 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,42 +46,32 @@ int    check_FC(char *line)
         return(0);
 }
 
-// char    *rm_bs(char *str)
-// {
-//     int i = str_len(str);
-
-//     char *new = malloc(sizeof(char) * i);
-//     if(!new)
-//         exit(0);
-//    i--;
-//    new[i] = 0;
-//    while(--i >= 0)
-//    {
-//        new[i] = str[i];
-//    }
-//     return(new);
-// }
-
-
 
 void    assign_data(t_map **map, char **spltd)
 {
-    if (strcmp(spltd[0], "NO") == 0)
+
+    if (strcmp(spltd[0], "NO") == 0 && !((*map)->element.no))
     {
         (*map)->element.no = spltd;
     }
-    else if (strcmp(spltd[0], "SO") == 0)
+    else if (strcmp(spltd[0], "SO") == 0 && !((*map)->element.so))
         (*map)->element.so = spltd;
-    else if (strcmp(spltd[0], "WE") == 0)
+    else if (strcmp(spltd[0], "WE") == 0 && !((*map)->element.we))
         (*map)->element.we = spltd;
-    else if (strcmp(spltd[0], "EA") == 0)
+    else if (strcmp(spltd[0], "EA") == 0 && (!(*map)->element.ea))
         (*map)->element.ea = spltd;
     else 
     {
-        if(spltd[0][0] == 'F')
+        if(spltd[0][0] == 'F' && !(*map)->element.f)
             (*map)->element.f = spltd;
-        else if(spltd[0][0] == 'C')
+        else if(spltd[0][0] == 'C' && !(*map)->element.c)
             (*map)->element.c = spltd;   
+        else
+        {
+            perror ("double config");
+            exit(-1);
+        }
+            
     }
 }
 
@@ -105,6 +95,8 @@ int    check_line(char *line, t_map **map)
     }
     return (0);   
 }
+
+
 
 int read_map(char* file, t_map *map)
 {
