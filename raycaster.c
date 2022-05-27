@@ -10,28 +10,32 @@ double power(double x)
 	return (x * x);
 }
 
-void draw3d(t_map *map, double dist, int x)
+void draw3d(t_map *map, double dist, int x, int n)
 {
-	int wall_h;
-	int start;
-	int y = 0;
-	wall_h = floor((map->heigth/2) / dist); //divide by halfheight
-	start = 0;
-	while (start < floor(map->heigth/2) - wall_h)
-	{
-		if (start * map->width + x >= map->heigth * map->width)
-			break;
-		map->img_buf[start * map->width + x] = 4758;
-		start++;
-	}
-	y = 0;
+	double wall_h;
+	int start, texY;
+	double dis;
+	double step;
+	double texpos;
+	double xtex;
+
+	wall_h = floor((double)(map->heigth/2) / (double)dist); //divide by halfheight
+	start = floor(map->heigth/2 - wall_h);
+	if (n == 0)
+		dis = (map->player_x + map->ray_x) - (int)(map->player_x + map->ray_x);
+	else
+		dis = (map->player_y + map->ray_y) - (int)(map->player_y + map->ray_y);
+	xtex = dis * map->tex[3].width;
+	step = 1.0 * (double)map->tex[3].height / wall_h;
+	texpos = wall_h < map->heigth ? 0 : (wall_h / 2 - map->heigth / 2) * step;
 	while (start < floor(map->heigth/2) + wall_h)
 	{
+		texY = (int)texpos & (map->tex[3].height - 1);
+		texpos += step;
 		if (start * map->width + x >= map->heigth * map->width)
 			break;
-		map->img_buf[start * map->width + x] = (unsigned int)map->tex[3].addr[(y % map->tex[3].height) * map->tex[3].width + (x % map->tex[3].width)];
+		map->img_buf[start * map->width + x] = (unsigned int)map->tex[3].addr[texY * map->tex[3].width + (int)xtex];
 		start++;
-		y += 1;
 	}
 	while (start < map->heigth)
 	{
@@ -41,6 +45,7 @@ void draw3d(t_map *map, double dist, int x)
 		start++;
 	}
 }
+
 
 void	raycaster(t_map *map)
 {

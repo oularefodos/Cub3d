@@ -44,10 +44,10 @@ typedef struct s_move {
 
 typedef struct s_vec
 {
-	double		x;
-	double		y;
-	double		deltax;
-	double		deltay;
+	double		raydir_x;
+	double		raydir_y;
+	double		dirx;
+	double		diry;
 	int			stepx;
 	int			stepy;
 	int			side;
@@ -77,8 +77,8 @@ typedef struct data {
 
     t_tex tex[5];
 
-	double ray_x;
-	double ray_y;
+	int ray_x;
+	int ray_y;
 	int fov;
 	int player_angle;
 
