@@ -37,6 +37,14 @@ int find_error(t_map *map)
 			{
 				map->player_x = x;
 				map->player_y = y;
+				if (map->buf[y][x] == 'E')
+					map->player_angle = 0;
+				if (map->buf[y][x] == 'S')
+					map->player_angle = 90;
+				if (map->buf[y][x] == 'W')
+					map->player_angle = 180;
+				if (map->buf[y][x] == 'W')
+					map->player_angle = 270;
 				n++;
 			}
 			if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32

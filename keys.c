@@ -24,35 +24,45 @@
 int key_press(int keycode,t_map *map)
 {
 	double x;
-	double old;
 	double y;
+	double angle;
 
-	old = 0.0;
-	x = cos(to_radian(map->player_angle)) * 0.5;
-	y = sin(to_radian(map->player_angle)) * 0.5;
+	if (keycode == 0 || keycode == 2)
+		angle = map->player_angle - 90;
+	else
+		angle = map->player_angle;
+	x = cos(to_radian(angle)) * 0.7;
+	y = sin(to_radian(angle)) * 0.7;
+
+	printf("%d\n", keycode);
    	if (keycode == 123)
 	{
 		map->player_angle -= 10;
 		if (map->player_angle == 0)
 			map->player_angle = 360;
-		old = map->vec.dirx;
-		map->vec.dirx = map->vec.dirx * cos(to_radian(10)) - map->vec.diry * sin(to_radian(10));
-		map->vec.diry = old * sin(to_radian(10)) +  map->vec.diry * cos(to_radian(10));
 	}
 	else if (keycode == 124)
 	{
 		map->player_angle += 10;
 		if (map->player_angle == 360)
 			map->player_angle = 0;
-		map->vec.dirx = map->vec.dirx * cos(-to_radian(10)) - map->vec.diry * sin(-to_radian(10));
-		map->vec.diry = old * sin(-to_radian(10)) +  map->vec.diry * cos(-to_radian(10));
 	}
-	else if (keycode == 13 && ft_pos(map->buf[(int)floor(map->player_y + y)][(int)floor(map->player_x + x)]))//up
+	else if (keycode == 13 && ft_pos(map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)]))//up
 	{
 			map->player_x += x;
 			map->player_y += y;
 	}
-	else if (keycode == 1 && ft_pos(map->buf[(int)floor(map->player_y - y)][(int)floor(map->player_x - x)]))
+	else if (keycode == 0 && ft_pos(map->buf[(int)(map->player_y + y)][(int)(map->player_x + x)]))//up
+	{
+			map->player_x += x;
+			map->player_y += y;
+	}
+	else if (keycode == 2 && ft_pos(map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)]))//up
+	{
+			map->player_x -= x;
+			map->player_y -= y;
+	}
+	else if (keycode == 1 && ft_pos(map->buf[(int)(map->player_y - y)][(int)(map->player_x - x)]))
 	{
 			map->player_x -= x;
 			map->player_y -= y;
@@ -63,3 +73,24 @@ int key_press(int keycode,t_map *map)
     raycaster(map);
 	return (1);
 }
+
+
+
+
+
+// int	key_release(int keycode, t_map *map)
+// {
+// 	if (keycode == A_KEY)
+// 		map->move.left = 0;
+// 	if (keycode == S_KEY || keycode == DOWN_KEY)
+// 		map->move.back = 0;
+// 	if (keycode == D_KEY)
+// 		map->move.right = 0;
+// 	if (keycode == W_KEY || keycode == UP_KEY)
+// 		map->move.forw = 0;
+// 	if (keycode == RIGHT_KEY)
+// 		map->move.rotright = 0;
+// 	if (keycode == LEFT_KEY)
+// 		map->move.rotleft = 0;
+// 	return (1);
+// }

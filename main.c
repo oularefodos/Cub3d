@@ -16,40 +16,6 @@
 #include <stdlib.h>
 
 
-void ft_print(t_map *map)
-{
-    printf("%s\n", map->element.no[0]);
-    printf("%s", map->element.no[1]);
-    printf("--------------------------\n");
-    printf("%s\n", map->element.ea[0]);
-    printf("%s", map->element.ea[1]);
-    printf("--------------------------\n");
-    printf("%s\n", map->element.we[0]);
-    printf("%s", map->element.we[1]);
-    printf("--------------------------\n");
-    printf("%s\n", map->element.so[0]);
-    printf("%s", map->element.so[1]);
-    printf("--------------------------\n");
-    printf("%s\n", map->element.f[0]);
-    printf("%s", map->element.f[1]);
-    printf("--------------------------\n");
-    printf("%s\n", map->element.c[0]);
-    printf("%s", map->element.c[1]);
-}
-
-void    init_vecSide(t_map *map)
-{
-    map->vec.x = 0;
-	map->vec.y = 0;
-	map->vec.deltax = 0;
-	map->vec.deltay = 0;
-	map->vec.stepx = 0;
-	map->vec.stepy = 0;
-	map->vec.side = 0;
-	map->vec.camx = 0;
-	map->vec.mapx = 0;
-	map->vec.mapy = 0;
-}
 
 void init_tex(t_map *map)
 {
@@ -68,14 +34,6 @@ void init_tex(t_map *map)
 int ft_init(t_map *map)
 {
     map->fov = 60;
-    map->player_angle = 0;
-	map->move.forw = 0;
-	map->move.back = 0;
-	map->move.right = 0;
-	map->move.left = 0;
-	map->move.rotright = 0;
-	map->move.rotleft = 0;
-    init_vecSide(map);
     init_tex(map);
     return(1);
 }
@@ -113,17 +71,6 @@ void    boot_cub3d(char **av, t_map *map)
     }
 }
 
-
-
-
-
-
-// void start_game(t_map *map)
-// {
-    
-
-
-// }
 int main(int ac, char **av)
 {
     t_map *map;

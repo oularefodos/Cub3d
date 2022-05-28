@@ -31,31 +31,6 @@ typedef struct info {
     char **c;
 } t_info;
 
-typedef struct s_move {
-
-    int			forw;
-	int			back;
-	int			left;
-	int			right;
-	int			rotleft;
-	int			rotright;
-    
-}t_move;
-
-typedef struct s_vec
-{
-	double		raydir_x;
-	double		raydir_y;
-	double		dirx;
-	double		diry;
-	int			stepx;
-	int			stepy;
-	int			side;
-	double		camx;
-	int			mapx;
-	int			mapy;
-
-}t_vec;
 
 typedef struct s_tex
 {
@@ -71,17 +46,15 @@ typedef struct s_tex
 
 typedef struct data {
     t_info  element;
-    t_move  move;
-    t_vec   vec;
     t_info  texInfo;
 
     t_tex tex[5];
 
-	int ray_x;
-	int ray_y;
+	double ray_x;
+	double ray_y;
 	int fov;
 	int player_angle;
-
+	int i;
     double player_x;
     double player_y;
     int width;
