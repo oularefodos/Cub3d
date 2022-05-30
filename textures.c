@@ -6,13 +6,13 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/22 17:08:56 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:22:22 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	free_window(t_map *map)
+int	free_window_tex(t_map *map)
 {
 	int	i;
 
@@ -25,7 +25,6 @@ int	free_window(t_map *map)
     exit(1);
 	return (0);
 }
-
 
 char    *rem_bs(char *str)
 {
@@ -41,6 +40,25 @@ char    *rem_bs(char *str)
        new[i] = str[i];
    }
     return(new);
+}
+
+char *free_previous_str(char *str, char *line)
+{
+    char    *temp;
+
+    temp = ft_concat(str, line);
+    free(str);
+    str = temp;
+    return(str);
+
+}
+int    fillMap(t_map *map)
+{
+    int x = -1;
+    while (map->buf[++x])
+        puts(map->buf[x]);
+    return(1);
+
 }
 
 //converting xpm file to image
@@ -59,10 +77,10 @@ int add_text_img(t_map *map)
     {
         map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
         if (!map->tex[i].img)
-            return(free_window(map));
+            return(free_window_tex(map));
         map->tex[i].addr = (int *)mlx_get_data_addr(map->tex[i].img, &map->tex[i].bits_per_pixel, &map->tex[i].line_length, &map->tex[i].endian);   
         if (!map->tex[i].addr)
-            return(free_window(map));
+           return(free_window_tex(map));
         i++;
     }
     return(1);

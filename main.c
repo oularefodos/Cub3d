@@ -6,30 +6,12 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/22 15:56:26 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:13:44 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-
-
-void init_tex(t_map *map)
-{
-    int	j;
-
-	j = -1;
-	while (++ j < 4)
-	{
-		map->tex[j].img = 0;
-		map->tex[j].addr = 0;
-		map->tex[j].height = 0;
-		map->tex[j].width = 0;
-	}
-}
 
 int ft_init(t_map *map)
 {
@@ -62,23 +44,42 @@ void    boot_cub3d(char **av, t_map *map)
     if (!check_extension(av[1]))
     {
         perror ("extension file is not compatible");
-        exit(0);
+        free_map(map);
+        exit(-1);
     }
     if(!read_map(av[1], map))
     {
-        perror("error inside elements\n");
-        exit(0);
+        free_map(map);
+        exit(-1);
+    }   
+}
+
+
+void    start_game(t_map *map)
+{
+    if (!ft_init(map))
+    {
+        perror("initialization erro ");
+        free_window(map);
+        exit(1);
     }
+    if (!add_text_img(map))
+    {
+        
+        perror("texture_error");
+        free_window(map);
+        exit(1);
+    } 
+    raycaster(map);
 }
 
 int main(int ac, char **av)
 {
-    t_map *map;
+    t_map   *map;
 
     map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 		return (0);
-
     if (ac != 2)
     { 
         printf("Error arguments/n");
@@ -87,17 +88,7 @@ int main(int ac, char **av)
     boot_cub3d(av, map);
     map->mlx = mlx_init();
     map->win = mlx_new_window ( map->mlx, map->width, map->heigth, "CUB-3D");
-    if (!ft_init(map))
-    {
-        perror("initialization erro ");
-        exit(1);
-    }
-    if (!add_text_img(map))
-    {
-        perror("texture_error");
-        exit(1);
-    } 
-    raycaster(map);
+    start_game(map);
     mlx_hook(map->win, 2, 0, key_press, map);
     mlx_loop (map->mlx);
     return (0);

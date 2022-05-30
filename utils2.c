@@ -34,3 +34,32 @@ char *ft_concat(char *s1, char *s2)
 	ret[i] = '\0';
 	return (ret);
 }
+
+
+void init_tex(t_map *map)
+{
+    int	j;
+
+	j = -1;
+	while (++ j < 4)
+	{
+		map->tex[j].img = 0;
+		map->tex[j].addr = 0;
+		map->tex[j].height = 0;
+		map->tex[j].width = 0;
+	}
+}
+
+void    initialize_map(t_map *map)
+{
+    map->element.no = 0;
+    map->element.ea = 0;
+    map->element.so = 0;
+    map->element.we = 0;
+    map->element.f = 0;
+    map->element.c = 0;
+    map->heigth = 0;
+    map->width = 0;
+    map->player_x = 0;
+    map->player_y = 0;
+}

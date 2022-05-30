@@ -1,7 +1,26 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 15:21:00 by ahaifoul          #+#    #+#             */
+/*   Updated: 2022/05/30 15:21:33 by ahaifoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
+int ft_size(char **spltd)
+{
+    int i;
 
+    i = 0;
+    while(spltd[i])
+        i++;
+    return(i);
+}
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

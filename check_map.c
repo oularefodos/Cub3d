@@ -16,6 +16,70 @@ int ft_pos(char c)
 	return (0);
 }
 
+int	rem_map(t_map *map, int x, int y)
+{
+	map->player_x = x;
+	map->player_y = y;
+	if (map->buf[y][x] == 'E')
+		map->player_angle = 0;
+	if (map->buf[y][x] == 'S')
+		map->player_angle = 90;
+	if (map->buf[y][x] == 'W')
+		map->player_angle = 180;
+	if (map->buf[y][x] == 'W')
+		map->player_angle = 270;
+	return(1);
+
+}
+
+void	check_space(t_map *map, int x, int y)
+{
+	if (map->buf[y][0] == '\n')
+				{
+					perror("error in map\n");
+					free(map);
+					exit(0);
+				}
+	if (map->buf[y][x] == 32)
+	{
+	if (ft_pos(map->buf[y][x + 1])|| (x != 0 && ft_pos(map->buf[y][x - 1]))
+				|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
+				|| (y != 0 && ft_pos(map->buf[y - 1][x])))
+				{
+					perror("error in map\n");
+					free(map);
+					exit(0);
+				}
+	}
+	if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ') && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
+	{
+		perror("error in map\n");
+		free(map);
+		exit(0);
+	}
+}
+
+
+int	check_rest(t_map *map, int x, int y)
+{
+	int n;
+
+	n = 0;
+	if (map->buf[y][x] == 'N' || map->buf[y][x] == 'W' 
+				|| map->buf[y][x] == 'E'|| map->buf[y][x] == 'S')
+				n+= rem_map(map, x, y);
+	if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32
+				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S' && map->buf[y][x] != '1')
+				{
+					perror("error in map\n");
+					free(map);
+					exit(0);
+				}
+	if (n)
+		return(n);
+	return(0);
+}
+
 int find_error(t_map *map)
 {
 	int x;
@@ -30,35 +94,8 @@ int find_error(t_map *map)
 		x = 0;
 		while (map->buf[y][x])
 		{
-			if (map->buf[y][0] == '\n')
-				return (1);
-			if (map->buf[y][x] == 'N' || map->buf[y][x] == 'W' 
-				|| map->buf[y][x] == 'E'|| map->buf[y][x] == 'S')
-			{
-				map->player_x = x;
-				map->player_y = y;
-				if (map->buf[y][x] == 'E')
-					map->player_angle = 0;
-				if (map->buf[y][x] == 'S')
-					map->player_angle = 90;
-				if (map->buf[y][x] == 'W')
-					map->player_angle = 180;
-				if (map->buf[y][x] == 'W')
-					map->player_angle = 270;
-				n++;
-			}
-			if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32
-				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S' && map->buf[y][x] != '1')
-				return (1);
-			if (map->buf[y][x] == 32)
-			{
-				if (ft_pos(map->buf[y][x + 1])|| (x != 0 && ft_pos(map->buf[y][x - 1]))
-					|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
-					|| (y != 0 && ft_pos(map->buf[y - 1][x])))
-					return (1);
-			}
-			if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ') && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
-				return (1);
+			check_space(map, x, y);
+			n += check_rest(map, x, y);
 			x++;
 		}
 		y++;
@@ -94,12 +131,12 @@ char **getmap(char *str, int len, int nline)
 	int i;
 	int m;
 
-	i = 0;
+	i = -1;
 	m = 0;
 	buf = malloc(sizeof(char *) * (nline + 1));
 	if (!buf)
 		return (NULL);
-	while (i < nline)
+	while (++i < nline)
 	{
 		m = 0;
 		while (*str && *str != '\n')
@@ -110,7 +147,6 @@ char **getmap(char *str, int len, int nline)
 		buf[i] = ft_duplic(str - m, len);
 		if (*str == '\n')
 			str++;
-		i++;
 	}
 	buf[i] = NULL;
 	return (buf);
@@ -129,9 +165,7 @@ int maxlen(char *str, int *nline)
 	while (str[i])
 	{
 		if (str[i] != '\n')
-		{
 			count++;
-		}
 		else if (str[i] == '\n' || str[i + 1] == '\0')
 		{
 			(*nline)++;
@@ -157,7 +191,8 @@ int check_map(t_map *map, char *str)
 	if (find_error(map))
 	{
 		perror("error in map\n");
-		exit(1);
+		free(map);
+		exit(0);
 	}
-	return (0);
+	return (1);
 }

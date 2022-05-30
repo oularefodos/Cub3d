@@ -57,16 +57,27 @@ void draw3d(t_map *map, double dist, int x, int n)
 	}
 }
 
+void	init_data(t_map *map)
+{
+	map->planx = 0;
+	map->plany = 0.66;
+	map->dirx = 0;
+	map->diry = -1;
+
+
+}
+
 void	raycaster(t_map *map)
 {
 	double ray_angle;
 	int i, n = 0;
-	double dist, dirx, diry, planx, plany;
+	// double dist, dirx, diry, planx, plany;
 	int lin; int pix; int d;
 	double incre;
 
 	i = 0;
-	planx = 0; plany = 0.66; dirx = 0; diry = -1;
+	init_data(map);
+	// planx = 0; plany = 0.66; dirx = 0; diry = -1;
 	incre = (double)map->fov / (double)map->width;//distance between rays 
 	ray_angle = map->player_angle - (map->fov / 2);// start at 30 degree for the initial ray casting 0 column 
 	map->img = mlx_new_image (map->mlx, map->width, map->heigth);
@@ -98,9 +109,9 @@ void	raycaster(t_map *map)
 			map->i = 1;
 		else if (sin(to_radian(ray_angle)) > 0 && n == 1)
 			map->i = 0;
-		dist = sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y));
-		dist = dist * cos(to_radian(ray_angle - map->player_angle));// ?// ?
-		draw3d(map, dist, i, n);
+		map->dist = sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y));
+		map->dist = map->dist * cos(to_radian(ray_angle - map->player_angle));// ?// ?
+		draw3d(map, map->dist, i, n);
 		ray_angle += incre;
 		i++;
 	}
