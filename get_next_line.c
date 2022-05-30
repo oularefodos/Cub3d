@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 17:41:25 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/09 18:49:58 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:10:32 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = NULL;
 	rest = fill_rest(rest, buffer, fd);
-	
 	if (!rest)
 		return (NULL);
-
 	if (rest[ft_newline(rest)] == '\n')
 	{
 		line = ft_substr(rest, 0, ft_newline(rest) + 1);
@@ -103,6 +101,5 @@ char	*get_next_line(int fd)
 		free(rest);
 		rest = NULL;
 	}
-	
 	return (line);
 }
