@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:59:45 by ahaifoul          #+#    #+#             */
+/*   Updated: 2022/05/30 20:02:42 by ahaifoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -10,12 +22,12 @@ int ft_strlen(char *s)
 	return (i);
 }
 
-char *ft_concat(char *s1, char *s2)
+char	*ft_concat(char *s1, char *s2)
 {
-	int i;
-	int	j;
-	int len;
-	char *ret;
+	int		i;
+	int		j;
+	int		len;
+	char	*ret;
 
 	if (!s1)
 		return (ft_strdup(s2));
@@ -35,10 +47,9 @@ char *ft_concat(char *s1, char *s2)
 	return (ret);
 }
 
-
-void init_tex(t_map *map)
+void	init_tex(t_map *map)
 {
-    int	j;
+	int	j;
 
 	j = -1;
 	while (++ j < 4)
@@ -50,16 +61,16 @@ void init_tex(t_map *map)
 	}
 }
 
-void    initialize_map(t_map *map)
+void	initialize_map(t_map *map)
 {
-    map->element.no = 0;
-    map->element.ea = 0;
-    map->element.so = 0;
-    map->element.we = 0;
-    map->element.f = 0;
-    map->element.c = 0;
-    map->heigth = 0;
-    map->width = 0;
-    map->player_x = 0;
-    map->player_y = 0;
+	map->element.no = 0;
+	map->element.ea = 0;
+	map->element.so = 0;
+	map->element.we = 0;
+	map->element.f = 0;
+	map->element.c = 0;
+	map->heigth = 0;
+	map->width = 0;
+	map->player_x = 0;
+	map->player_y = 0;
 }

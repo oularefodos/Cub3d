@@ -6,20 +6,20 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:21:00 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 15:21:33 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:58:48 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_size(char **spltd)
+int	ft_size(char **spltd)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(spltd[i])
-        i++;
-    return(i);
+	i = 0;
+	while (spltd[i])
+		i++;
+	return (i);
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
@@ -100,6 +100,3 @@ char	**ft_split(const char *s, char c)
 		return (NULL);
 	return (tab);
 }
-
-
-

@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 15:22:22 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:55:52 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,66 +22,72 @@ int	free_window_tex(t_map *map)
 		if (map->tex[i].img)
 			mlx_destroy_image(map->mlx, map->tex[i].img);
 	free(map->mlx);
-    exit(1);
+	exit(1);
 	return (0);
 }
 
-char    *rem_bs(char *str)
+char	*rem_bs(char *str)
 {
-    int i = str_len(str);
+	int		i;
+	char	*new;
 
-    char *new = malloc(sizeof(char) * i);
-    if(!new)
-        exit(0);
-   i--;
-   new[i] = 0;
-   while(--i >= 0)
-   {
-       new[i] = str[i];
-   }
-    return(new);
+	i = str_len(str);
+	new = malloc(sizeof(char) * i);
+	if (!new)
+		exit(0);
+	i--;
+	new[i] = 0;
+	while (--i >= 0)
+	{
+		new[i] = str[i];
+	}
+	return (new);
 }
 
-char *free_previous_str(char *str, char *line)
+char	*free_previous_str(char *str, char *line)
 {
-    char    *temp;
+	char	*temp;
 
-    temp = ft_concat(str, line);
-    free(str);
-    str = temp;
-    return(str);
-
+	temp = ft_concat(str, line);
+	free(str);
+	str = temp;
+	return (str);
 }
-int    fillMap(t_map *map)
-{
-    int x = -1;
-    while (map->buf[++x])
-        puts(map->buf[x]);
-    return(1);
 
+int	fillmap(t_map *map)
+{
+	int	x;
+
+	x = -1;
+	while (map->buf[++x])
+		puts(map->buf[x]);
+	return (1);
 }
 
 //converting xpm file to image
-int add_text_img(t_map *map)
+int	add_text_img(t_map *map)
 {
-    char    *p[5];
-    int     i;
+	char	*p[5];
+	int		i;
 
-    i = 0;
-    p[0] = rem_bs(map->element.no[1]);
-    p[1] = rem_bs(map->element.so[1]);
-    p[2] = rem_bs(map->element.we[1]);
-    p[3] = rem_bs(map->element.ea[1]);
-    p[4] = NULL;
-    while(i < 4)
-    {
-        map->tex[i].img = mlx_xpm_file_to_image(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
-        if (!map->tex[i].img)
-            return(free_window_tex(map));
-        map->tex[i].addr = (int *)mlx_get_data_addr(map->tex[i].img, &map->tex[i].bits_per_pixel, &map->tex[i].line_length, &map->tex[i].endian);   
-        if (!map->tex[i].addr)
-           return(free_window_tex(map));
-        i++;
-    }
-    return(1);
+	i = 0;
+	p[0] = rem_bs(map->element.no[1]);
+	p[1] = rem_bs(map->element.so[1]);
+	p[2] = rem_bs(map->element.we[1]);
+	p[3] = rem_bs(map->element.ea[1]);
+	p[4] = NULL;
+	while (i < 4)
+	{
+		map->tex[i].img = mlx_xpm_file_to_image
+			(map->mlx, p[i], &map->tex[i].width, &map->tex[i].height);
+		if (!map->tex[i].img)
+			return (free_window_tex(map));
+		map->tex[i].addr = (int *)mlx_get_data_addr
+			(map->tex[i].img, &map->tex[i].bits_per_pixel,
+				&map->tex[i].line_length, &map->tex[i].endian);
+		if (!map->tex[i].addr)
+			return (free_window_tex(map));
+		i++;
+	}
+	return (1);
 }

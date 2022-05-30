@@ -1,90 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 16:55:20 by ahaifoul          #+#    #+#             */
+/*   Updated: 2022/05/30 17:08:52 by ahaifoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int ft_pos(char c)
+int	find_error(t_map *map)
 {
-	char *str;
-	int i;
-
-	i = 0;
-	str = "0NWSE";
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	rem_map(t_map *map, int x, int y)
-{
-	map->player_x = x;
-	map->player_y = y;
-	if (map->buf[y][x] == 'E')
-		map->player_angle = 0;
-	if (map->buf[y][x] == 'S')
-		map->player_angle = 90;
-	if (map->buf[y][x] == 'W')
-		map->player_angle = 180;
-	if (map->buf[y][x] == 'W')
-		map->player_angle = 270;
-	return(1);
-
-}
-
-void	check_space(t_map *map, int x, int y)
-{
-	if (map->buf[y][0] == '\n')
-				{
-					perror("error in map\n");
-					free(map);
-					exit(0);
-				}
-	if (map->buf[y][x] == 32)
-	{
-	if (ft_pos(map->buf[y][x + 1])|| (x != 0 && ft_pos(map->buf[y][x - 1]))
-				|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
-				|| (y != 0 && ft_pos(map->buf[y - 1][x])))
-				{
-					perror("error in map\n");
-					free(map);
-					exit(0);
-				}
-	}
-	if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ') && (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
-	{
-		perror("error in map\n");
-		free(map);
-		exit(0);
-	}
-}
-
-
-int	check_rest(t_map *map, int x, int y)
-{
-	int n;
-
-	n = 0;
-	if (map->buf[y][x] == 'N' || map->buf[y][x] == 'W' 
-				|| map->buf[y][x] == 'E'|| map->buf[y][x] == 'S')
-				n+= rem_map(map, x, y);
-	if (map->buf[y][x] != 'N' && map->buf[y][x] != 'W' && map->buf[y][x] != '0' && map->buf[y][x] != 32
-				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S' && map->buf[y][x] != '1')
-				{
-					perror("error in map\n");
-					free(map);
-					exit(0);
-				}
-	if (n)
-		return(n);
-	return(0);
-}
-
-int find_error(t_map *map)
-{
-	int x;
-	int y;
-	int n;
+	int	x;
+	int	y;
+	int	n;
 
 	x = 0;
 	y = 0;
@@ -105,10 +37,10 @@ int find_error(t_map *map)
 	return (0);
 }
 
-char *ft_duplic(char *str, int size)
+char	*ft_duplic(char *str, int size)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = malloc(sizeof(char) * (size + 1));
@@ -125,11 +57,11 @@ char *ft_duplic(char *str, int size)
 	return (ret);
 }
 
-char **getmap(char *str, int len, int nline)
+char	**getmap(char *str, int len, int nline)
 {
-	char **buf;
-	int i;
-	int m;
+	char	**buf;
+	int		i;
+	int		m;
 
 	i = -1;
 	m = 0;
@@ -152,11 +84,11 @@ char **getmap(char *str, int len, int nline)
 	return (buf);
 }
 
-int maxlen(char *str, int *nline)
+int	maxlen(char *str, int *nline)
 {
-	int i;
-	int ret;
-	int count;
+	int	i;
+	int	ret;
+	int	count;
 
 	i = 0;
 	ret = 0;
@@ -178,15 +110,15 @@ int maxlen(char *str, int *nline)
 	return (ret);
 }
 
-int check_map(t_map *map, char *str)
+int	check_map(t_map *map, char *str)
 {
-	int len;
-	int nline;
+	int	len;
+	int	nline;
 
 	nline = 0;
 	len = maxlen(str, &nline);
 	map->heigth = 640 * 2;
-	map->width =  1000;
+	map->width = 1000;
 	map->buf = getmap(str, len, nline);
 	if (find_error(map))
 	{
