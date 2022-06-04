@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:57:04 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:00:23 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ typedef struct info
 
 typedef struct key
 {
-	int a;
-	int w;
-	int s;
-	int d;
-	int l;
-	int r;
-} t_key;
+	int	a;
+	int	w;
+	int	s;
+	int	d;
+	int	l;
+	int	r;
+}		t_key;
 
 typedef struct s_tex
 {

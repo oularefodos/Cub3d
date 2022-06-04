@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:57:04 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:59:18 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,18 @@ typedef struct info
 	char	**ea;
 	char	**f;
 	char	**c;
+	char	*p[11];
 }	t_info;
 
 typedef struct key
 {
-	int a;
-	int w;
-	int s;
-	int d;
-	int l;
-	int r;
-} t_key;
+	int	a;
+	int	w;
+	int	s;
+	int	d;
+	int	l;
+	int	r;
+}		t_key;
 
 typedef struct s_tex
 {
@@ -80,6 +81,27 @@ typedef struct s_treed
 	double	xtex;
 }			t_treed;
 
+typedef struct s_utilbonus
+{
+	int		i;
+	int		n;
+	int		v;
+	double	incre;
+	double	ray_angle;
+}			t_utlbns;
+
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	int		oldx;
+	int		oldy;
+	double	stepx;
+	double	stepy;
+	int		end_x;
+	int		end_y;
+}			t_sprite;
+
 typedef struct data
 {
 	t_info			element;
@@ -88,6 +110,8 @@ typedef struct data
 	t_tex			texp[6];
 	t_treed			treed;
 	t_key			key;
+	t_sprite		sprite;
+	t_utlbns		utlbns;
 	double			ray_x;
 	int				oldx;
 	double			ray_y;
@@ -119,7 +143,6 @@ typedef struct data
 	int				pix;
 	int				d;
 	double			incre;
-	
 }					t_map;
 //parsing 
 int		read_map(char *file, t_map *map);
@@ -144,7 +167,7 @@ int		key_release(int keycode, t_map *map);
 int		add_text_img(t_map *map);
 char	*rm_bs(char *str);
 void	ft_print(t_map *map);
-int 	raycaster(t_map *map);
+int		raycaster(t_map *map);
 double	to_radian(double angle);
 void	move_backforwards(t_map *map);
 char	*ft_itoa(int n);
@@ -170,9 +193,14 @@ int		ft_pos(char c);
 int		rem_map(t_map *map, int x, int y);
 void	check_space(t_map *map, int x, int y);
 int		check_rest(t_map *map, int x, int y);
-int 	mouse_hook(int x, int y, t_map *map);
+int		mouse_hook(int x, int y, t_map *map);
 void	move_left(t_map *map);
 void	move_right(t_map *map);
 void	move(t_map *map);
 int		key_release(int keycode, t_map *map);
+void	draw3d(t_map *map, double dist, int x, int n);
+void	projection_draw(t_map *map);
+void	init_data(t_map *map);
+char	*rem_bs(char *str);
+int		free_window_tex(t_map *map);
 #endif

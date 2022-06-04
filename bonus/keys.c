@@ -6,15 +6,13 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:10:07 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:38:54 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:12:43 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-
-void move(t_map *map)
+void	move(t_map *map)
 {
 	double	x;
 	double	y;
@@ -31,17 +29,17 @@ void move(t_map *map)
 	if (map->key.r == 1)
 		move_right(map);
 	else if ((map->key.w == 1 || map->key.a == 1)
-		&& ft_pos(map->buf[(int)floor(map->player_y + y)][(int)floor(map->player_x + x)]))
+		&& ft_pos(map->buf[(int)floor
+				(map->player_y + y)][(int)floor(map->player_x + x)]))
 		move_backforth(map, x, y);
 	else if ((map->key.d == 1 || map->key.s == 1)
-		&& ft_pos(map->buf[(int)floor(map->player_y - y)][(int)floor(map->player_x - x)]))
+		&& ft_pos(map->buf[(int)floor
+				(map->player_y - y)][(int)floor(map->player_x - x)]))
 		rotateangle(map, x, y);
 }
 
 int	key_press(int keycode, t_map *map)
 {
-	
-
 	if (keycode == A_KEY)
 		map->key.a = 1;
 	if (keycode == D_KEY)
@@ -59,7 +57,7 @@ int	key_press(int keycode, t_map *map)
 	return (0);
 }
 
-int key_release(int keycode, t_map *map)
+int	key_release(int keycode, t_map *map)
 {
 	if (keycode == A_KEY)
 		map->key.a = 0;
@@ -76,7 +74,7 @@ int key_release(int keycode, t_map *map)
 	return (0);
 }
 
-int mouse_hook(int x, int y, t_map *map)
+int	mouse_hook(int x, int y, t_map *map)
 {
 	if (x >= 0 && x < map->width && y >= 0 && y < map->heigth)
 	{
@@ -86,5 +84,5 @@ int mouse_hook(int x, int y, t_map *map)
 			move_right(map);
 	}
 	map->oldx = x;
-	return(0);
+	return (0);
 }

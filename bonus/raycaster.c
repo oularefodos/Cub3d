@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:53:28 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:47:00 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:43:33 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,146 +51,77 @@ void	init_data(t_map *map)
 		(map->img, &map->pix, &map->lin, &map->d);
 }
 
-void drawmini(t_map *map)
+void	assign_var(t_map *map)
 {
-	double x;
-	double y;
-	int oldx;
-	int oldy;
-	double stepx;
-	double stepy;
-	int end_x;
-	int end_y;
-
-	
 	map->img_m = mlx_new_image (map->mlx, 300, 300);
 	map->img_buf_m = (unsigned int *)mlx_get_data_addr
 		(map->img_m, &map->pix, &map->lin, &map->d);
-	x = map->player_x - 10;
-	y = map->player_y - 10;
-	end_x = map->player_x + 10;
-	end_y = map->player_y + 10;
-	if (x < 0)
-		x = 0;
-	if (end_x >= map->buf_w)
-		end_x = map->buf_w - 1;
-	if (y < 0)
-		y = 0;
-	if (end_y >= map->buf_h)
-		end_y = map->buf_h - 1;
-	stepx = (end_x - x) / 300.0;
-	stepy = (end_y - y) / 300.0;
-	oldy = 0;
-	while (oldy < 300)
-	{
-		oldx = 0;
-		x = map->player_x - 10;
-		if (x < 0)
-		x = 0;
-		while (oldx < 300)
-		{
-			if (map->buf[(int)y][(int)x] == '1')
-				map->img_buf_m[oldy * 300 + oldx] = 25215;
-			if ((int)map->player_x == (int)x && (int)map->player_y == (int)y)
-				map->img_buf_m[oldy * 300 + oldx] = 4000;
-			if (map->buf[(int)y][(int)x] == 'P')
-				map->img_buf_m[oldy * 300 + oldx] = 16776960;
-			oldx++;
-			x += stepx;
-		}
-		y += stepy;
-		oldy++;
-	}
+	map->sprite.x = map->player_x - 10;
+	map->sprite.y = map->player_y - 10;
+	map->sprite.end_x = map->player_x + 10;
+	map->sprite.end_y = map->player_y + 10;
+	if (map->sprite.x < 0)
+		map->sprite.x = 0;
+	if (map->sprite.end_x >= map->buf_w)
+		map->sprite.end_x = map->buf_w - 1;
+	if (map->sprite.y < 0)
+		map->sprite.y = 0;
+	if (map->sprite.end_y >= map->buf_h)
+		map->sprite.end_y = map->buf_h - 1;
+	map->sprite.stepx = (map->sprite.end_x - map->sprite.x) / 300.0;
+	map->sprite.stepy = (map->sprite.end_y - map->sprite.y) / 300.0;
+	map->sprite.oldy = 0;
 }
 
-int	start_projection(t_map *map, double ray_angle, int *x)
+void	drawmini(t_map *map)
 {
-	int	i;
-	int	n;
-	int v;
-
-	i = 0;
-	n = 0;
-	v = 0;
-	map->ray_x = map->player_x;
-	map->ray_y = map->player_y;
-	while (ft_pos(map->buf[(int)floor(map->ray_y)][(int)floor(map->ray_x)]))
+	assign_var(map);
+	while (map->sprite.oldy < 300)
 	{
-		if (n)
+		map->sprite.oldx = 0;
+		map->sprite.x = map->player_x - 10;
+		if (map->sprite.x < 0)
+		map->sprite.x = 0;
+		while (map->sprite.oldx < 300)
 		{
-			map->ray_x += cos(to_radian(ray_angle)) / 566;
-			n = 0;
+			if (map->buf[(int)map->sprite.y][(int)map->sprite.x] == '1')
+				map->img_buf_m[map->sprite.oldy
+					* 300 + map->sprite.oldx] = 25215;
+			if ((int)map->player_x == (int)map->sprite.x
+				&& (int)map->player_y == (int)map->sprite.y)
+				map->img_buf_m[map->sprite.oldy
+					* 300 + map->sprite.oldx] = 4000;
+			if (map->buf[(int)map->sprite.y][(int)map->sprite.x] == 'P')
+				map->img_buf_m[map->sprite.oldy
+					* 300 + map->sprite.oldx] = 16776960;
+			map->sprite.oldx++;
+			map->sprite.x += map->sprite.stepx;
 		}
-		else
-		{
-			map->ray_y += sin(to_radian(ray_angle)) / 566;
-			n = 1;
-		}
-		if (map->buf[(int)floor(map->ray_y)][(int)floor(map->ray_x)] == 'P')
-		{
-			if (sqrt(power(map->ray_x - map->player_x) + power(map->ray_y - map->player_y)) > 1.2 
-			&& v == 0)
-			{
-				*x = 1;
-				break;
-			}
-			else
-				v = 1;
-		}
+		map->sprite.y += map->sprite.stepy;
+		map->sprite.oldy++;
 	}
-	return (n);
-}
-
-void	check_rayangle(t_map *map, double ray_angle, int n)
-{
-	if (cos(to_radian(ray_angle)) < 0 && n == 0)
-		map->i = 2;
-	else if (cos(to_radian(ray_angle)) > 0 && n == 0)
-		map->i = 3;
-	if (sin(to_radian(ray_angle)) < 0 && n == 1)
-		map->i = 1;
-	else if (sin(to_radian(ray_angle)) > 0 && n == 1)
-		map->i = 0;
 }
 
 int	raycaster(t_map *map)
 {
-	double	ray_angle;
 	int		i;
 	int		n;
-	int		x;
-	double	incre;
 
 	n = 0;
 	i = 0;
 	move(map);
+	map->utlbns.incre = (double)map->fov / (double)map->width;
+	map->utlbns.ray_angle = map->player_angle - (map->fov / 2);
 	init_data(map);
+	projection_draw(map);
 	mlx_clear_window(map->mlx, map->win);
-	incre = (double)map->fov / (double)map->width;
-	ray_angle = map->player_angle - (map->fov / 2);
-	while (i < map->width)
-	{
-		map->ray_x = map->player_x;
-		map->ray_y = map->player_y;
-		x = 0;
-		n = start_projection(map, ray_angle, &x);
-		if (x == 1)
-			map->i = 4;
-		else
-			check_rayangle(map, ray_angle, n);
-		map->dist = sqrt(power(map->ray_x - map->player_x)
-				+ power(map->ray_y - map->player_y));
-		map->dist = map->dist * cos(to_radian(ray_angle - map->player_angle));
-		draw3d(map, map->dist, i, n);
-		ray_angle += incre;
-		i++;
-	}
 	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
 	i = map->m % 5;
 	map->m++;
 	if (map->m == 100000)
 		map->m = 1;
-	mlx_put_image_to_window(map->mlx, map->win, map->texp[i].img, map->width/1.3 - map->texp[i].width, map->heigth/1.1 - map->texp[i].height);
+	mlx_put_image_to_window(map->mlx, map->win, map->texp[i].img, map->width
+		/ 1.3 - map->texp[i].width, map->heigth / 1.1 - map->texp[i].height);
 	drawmini(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img_m, 10, 10);
 	return (0);
