@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 12:54:16 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 18:34:27 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/03 19:47:13 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	move_left(t_map *map)
 	map->player_angle -= 10;
 	map->player_angle %= 360;
 }
- void move_right(t_map *map)
+
+void	move_right(t_map *map)
 {
 	map->player_angle += 10;
 	map->player_angle %= 360;
@@ -28,6 +29,7 @@ void	move_backforth(t_map *map, double x, double y)
 	map->player_x += x;
 	map->player_y += y;
 }
+
 void	rotateangle(t_map *map, double x, double y)
 {
 	map->player_x -= x;

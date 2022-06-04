@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:53:28 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:47:00 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 12:55:08 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	draw3d(t_map *map, double dist, int x, int n)
 		dis = (map->player_y + map->ray_y) - (int)(map->player_y + map->ray_y);
 	map->treed.xtex = dis * map->tex[map->i].width;
 	map->treed.step = 1.0 * (double)map->tex[map->i].height / map->treed.wall_h;
-	texpos = map->treed.wall_h < map->heigth ? 0 : (map->treed.wall_h / 2 - map->heigth / 2) * map->treed.step;
+	if (map->treed.wall_h < map->heigth)
+		texpos = 0.0;
+	else
+		texpos = (map->treed.wall_h / 2 - map->heigth / 2) * map->treed.step;
 	draw_floor(map, i, start, x);
 	start = draw_walls(map, start, texpos, x);
 	draw_cel(map, start, x);
@@ -39,6 +42,8 @@ void	draw3d(t_map *map, double dist, int x, int n)
 
 void	init_data(t_map *map)
 {
+	if (map->img)
+		mlx_destroy_image(map->mlx, map->img);
 	map->planx = 0;
 	map->plany = 0.66;
 	map->dirx = 0;
@@ -102,10 +107,8 @@ int	raycaster(t_map *map)
 	init_data(map);
 	incre = (double)map->fov / (double)map->width;
 	ray_angle = map->player_angle - (map->fov / 2);
-	while (i < map->width)
+	while (i++ < map->width)
 	{
-		map->ray_x = map->player_x;
-		map->ray_y = map->player_y;
 		n = start_projection(map, ray_angle);
 		check_rayangle(map, ray_angle, n);
 		map->dist = sqrt(power(map->ray_x - map->player_x)
@@ -113,7 +116,6 @@ int	raycaster(t_map *map)
 		map->dist = map->dist * cos(to_radian(ray_angle - map->player_angle));
 		draw3d(map, map->dist, i, n);
 		ray_angle += incre;
-		i++;
 	}
 	mlx_put_image_to_window(map->mlx, map->win, map->img, 0, 0);
 	return (0);

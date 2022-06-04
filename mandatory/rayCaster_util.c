@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:50:25 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 18:56:25 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/04 12:13:31 by ahaifoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ void	draw_floor(t_map *map, int i, int start, int x)
 
 int	draw_walls(t_map *map, int start, double texpos, int x)
 {
-	while (start < map->treed.wall_h / 2 + map->heigth / 2)
+	int	end;
+
+	end = map->treed.wall_h / 2 + map->heigth / 2;
+	if (end >= map->heigth)
+		end = map->heigth - 1;
+	while (start < end)
 	{
 		map->treed.texy = (int)texpos & (map->tex[map->i].height - 1);
 		texpos += map->treed.step;
