@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:55:52 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:50:34 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,6 @@ char	*free_previous_str(char *str, char *line)
 	return (str);
 }
 
-int	fillmap(t_map *map)
-{
-	int	x;
-
-	x = -1;
-	while (map->buf[++x])
-		puts(map->buf[x]);
-	return (1);
-}
-
-//converting xpm file to image
 int	add_text_img(t_map *map)
 {
 	char	*p[5];

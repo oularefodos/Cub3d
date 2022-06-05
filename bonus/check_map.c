@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:55:20 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 17:08:52 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 09:30:15 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	check_map(t_map *map, char *str)
 	map->buf_h = nline;
 	map->buf_w = len;
 	map->buf = getmap(str, len, nline);
+	free(str);
 	if (find_error(map))
 	{
 		perror("Error: invalid map\n");

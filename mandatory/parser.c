@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:34 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 19:56:59 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:50:57 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	assign_data(t_map **map, char **spltd)
 {
-	if (strcmp(spltd[0], "NO") == 0 && !((*map)->element.no))
+	if (ft_strcmp(spltd[0], "NO") == 0 && !((*map)->element.no))
 	{
 		(*map)->element.no = spltd;
 	}
-	else if (strcmp(spltd[0], "SO") == 0 && !((*map)->element.so))
+	else if (ft_strcmp(spltd[0], "SO") == 0 && !((*map)->element.so))
 		(*map)->element.so = spltd;
-	else if (strcmp(spltd[0], "WE") == 0 && !((*map)->element.we))
+	else if (ft_strcmp(spltd[0], "WE") == 0 && !((*map)->element.we))
 		(*map)->element.we = spltd;
-	else if (strcmp(spltd[0], "EA") == 0 && (!(*map)->element.ea))
+	else if (ft_strcmp(spltd[0], "EA") == 0 && (!(*map)->element.ea))
 		(*map)->element.ea = spltd;
 	else
 	{
@@ -32,8 +32,8 @@ void	assign_data(t_map **map, char **spltd)
 			(*map)->element.c = spltd;
 		else
 		{
-			perror ("double config");
-			exit(-1);
+			perror ("Error double config");
+			exit(1);
 		}
 	}
 }
@@ -43,12 +43,13 @@ int	check_line(char *line, t_map **map)
 	int		j;
 	char	**spltd;
 
-	if (strchr(line, ' '))
+	if (ft_strchr(line, ' '))
 	{
 		spltd = ft_split(line, ' ');
 		j = ft_size(spltd);
-		if ((strcmp(spltd[0], "NO") == 0 || strcmp(spltd[0], "SO") == 0
-				|| strcmp(spltd[0], "WE") == 0 || strcmp(spltd[0], "EA") == 0
+		if ((ft_strcmp(spltd[0], "NO") == 0 || ft_strcmp(spltd[0], "SO") == 0
+				|| ft_strcmp(spltd[0], "WE") == 0
+				|| ft_strcmp(spltd[0], "EA") == 0
 				|| (check_fc(spltd[0]))) && (j == 2))
 		{
 			assign_data(map, spltd);
@@ -79,7 +80,7 @@ char	*parsing(char *line, int fd, t_map *map, char *str)
 			free(line);
 			line = get_next_line(fd);
 		}
-		if (strchr(line, ' ') && count < 6)
+		if (ft_strchr(line, ' ') && count < 6)
 			count += checkline(line, &map);
 		else if (count < 6)
 			handle_err(2, map);
@@ -110,5 +111,5 @@ int	read_map(char *file, t_map *map)
 	str = parsing(line, fd, map, str);
 	if (!check_map(map, str))
 		return (0);
-	return (fillmap(map));
+	return (1);
 }

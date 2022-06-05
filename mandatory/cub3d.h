@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/04 16:00:23 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:31:47 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,4 +165,6 @@ void	move_left(t_map *map);
 void	move_right(t_map *map);
 void	move(t_map *map);
 int		key_release(int keycode, t_map *map);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strrchr(const char *str, int c);
 #endif

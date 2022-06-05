@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/04 15:59:18 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:39:14 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,4 +203,6 @@ void	projection_draw(t_map *map);
 void	init_data(t_map *map);
 char	*rem_bs(char *str);
 int		free_window_tex(t_map *map);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strrchr(const char *str, int c);
 #endif

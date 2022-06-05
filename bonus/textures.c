@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:39:10 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/04 15:56:15 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:44:58 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,4 @@ char	*free_previous_str(char *str, char *line)
 	free(str);
 	str = temp;
 	return (str);
-}
-
-int	fillmap(t_map *map)
-{
-	int	x;
-
-	x = -1;
-	while (map->buf[++x])
-		puts(map->buf[x]);
-	return (1);
 }

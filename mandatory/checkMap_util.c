@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:05:40 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 17:09:10 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 08:56:33 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int	rem_map(t_map *map, int x, int y)
 	map->player_y = y;
 	if (map->buf[y][x] == 'E')
 		map->player_angle = 0;
-	if (map->buf[y][x] == 'S')
+	if (map->buf[y][x] == 'N')
 		map->player_angle = 90;
 	if (map->buf[y][x] == 'W')
 		map->player_angle = 180;
-	if (map->buf[y][x] == 'W')
+	if (map->buf[y][x] == 'S')
 		map->player_angle = 270;
 	return (1);
 }
@@ -47,9 +47,9 @@ void	check_space(t_map *map, int x, int y)
 {
 	if (map->buf[y][0] == '\n')
 	{
-		perror("error in map\n");
-		free(map);
-		exit(0);
+		perror("Error in map\n");
+		free_map(map);
+		exit(1);
 	}
 	if (map->buf[y][x] == 32)
 	{
@@ -57,17 +57,17 @@ void	check_space(t_map *map, int x, int y)
 				|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
 				|| (y != 0 && ft_pos(map->buf[y - 1][x])))
 		{
-			perror("error in map\n");
-			free(map);
-			exit(0);
+			perror("Error in map\n");
+			free_map(map);
+			exit(1);
 		}
 	}
 	if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ')
 		&& (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
 	{
-		perror("error in map\n");
-		free(map);
-		exit(0);
+		perror("Error in map\n");
+		free_map(map);
+		exit(1);
 	}
 }
 
@@ -84,9 +84,9 @@ int	check_rest(t_map *map, int x, int y)
 				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S'
 				&& map->buf[y][x] != '1')
 	{
-		perror("error in map\n");
-		free(map);
-		exit(0);
+		perror("Error in map\n");
+		free_map(map);
+		exit(1);
 	}
 	if (n)
 		return (n);

@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:55:20 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 17:08:52 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 09:27:28 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,15 @@ int	check_map(t_map *map, char *str)
 
 	nline = 0;
 	len = maxlen(str, &nline);
-	map->heigth = 640 * 2;
+	map->heigth = 1280;
 	map->width = 1000;
 	map->buf = getmap(str, len, nline);
+	free(str);
 	if (find_error(map))
 	{
-		perror("error in map\n");
+		perror("Error in map\n");
 		free(map);
-		exit(0);
+		exit(1);
 	}
 	return (1);
 }

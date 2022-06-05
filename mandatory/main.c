@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/05/30 18:28:57 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 09:40:52 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_init(t_map *map)
 {
+	map->img = NULL;
 	map->key.a = 0;
 	map->key.w = 0;
 	map->key.s = 0;
@@ -50,12 +51,12 @@ void	boot_cub3d(char **av, t_map *map)
 	{
 		perror ("extension file is not compatible");
 		free_map(map);
-		exit (-1);
+		exit (1);
 	}
 	if (!read_map(av[1], map))
 	{
 		free_map(map);
-		exit(-1);
+		exit(1);
 	}
 }
 
