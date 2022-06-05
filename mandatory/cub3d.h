@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/05 10:31:47 by foulare          ###   ########.fr       */
+/*   Updated: 2022/06/05 12:38:45 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct data
 	char			**buf;
 	void			*mlx;
 	void			*win;
+	int				color_f;
+	int				color_c;
 	void			*img;
 	unsigned int	*img_buf;
 	double			ray_angle;
@@ -167,4 +169,6 @@ void	move(t_map *map);
 int		key_release(int keycode, t_map *map);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *str, int c);
+int		ft_close(t_map *map);
+int		convert_rgb(char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:14:44 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/05 09:40:52 by foulare          ###   ########.fr       */
+/*   Updated: 2022/06/05 12:41:00 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_init(t_map *map)
 {
+	map->color_f = convert_rgb(map->element.f[1]);
+	map->color_c = convert_rgb(map->element.c[1]);
 	map->img = NULL;
 	map->key.a = 0;
 	map->key.w = 0;
@@ -95,6 +97,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(map->mlx, raycaster, (void *)map);
 	mlx_hook(map->win, 2, 0, key_press, map);
 	mlx_hook(map->win, 3, 0, key_release, map);
+	mlx_hook(map->win, 17, 0, ft_close, (void *)map);
 	mlx_loop (map->mlx);
 	return (0);
 }

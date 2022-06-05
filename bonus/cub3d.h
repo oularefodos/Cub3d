@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:09:56 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/05 10:39:14 by foulare          ###   ########.fr       */
+/*   Updated: 2022/06/05 12:45:28 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ typedef struct data
 	double			ray_x;
 	int				oldx;
 	double			ray_y;
+	int				color_f;
+	int				color_c;
 	int				fov;
 	int				player_angle;
 	int				i;
@@ -205,4 +207,6 @@ char	*rem_bs(char *str);
 int		free_window_tex(t_map *map);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *str, int c);
+int		ft_close(t_map *map);
+int		convert_rgb(char *str);
 #endif

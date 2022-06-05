@@ -6,7 +6,7 @@
 /*   By: ahaifoul <ahaifoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:50:25 by ahaifoul          #+#    #+#             */
-/*   Updated: 2022/06/04 12:13:31 by ahaifoul         ###   ########.fr       */
+/*   Updated: 2022/06/05 12:41:35 by foulare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	draw_floor(t_map *map, int i, int start, int x)
 	{
 		if (i * map->width + x >= map->heigth * map->width)
 			break ;
-		map->img_buf[i * map->width + x] = 12640239;
+		map->img_buf[i * map->width + x] = map->color_f;
 		i++;
 	}
 }
@@ -61,7 +61,7 @@ void	draw_cel(t_map *map, int start, int x)
 		if (start * map->width + x >= map->heigth
 			* map->width || start * map->width + x < 0)
 			break ;
-		map->img_buf[start * map->width + x] = 15454883;
+		map->img_buf[start * map->width + x] = map->color_c;
 		start++;
 	}
 }

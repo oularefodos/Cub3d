@@ -3,8 +3,8 @@ SO ./textures/west.xpm
 WE ./textures/brick.xpm
 EA ./textures/east.xpm
 
-F 220,100,0
-C 225,30,0
+F 176,224,230
+C 1,215,88
 
         1111111111111111111111111
         1000000000110000000000001
