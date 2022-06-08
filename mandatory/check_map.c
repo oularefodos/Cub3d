@@ -123,7 +123,7 @@ int	check_map(t_map *map, char *str)
 	free(str);
 	if (find_error(map))
 	{
-		perror("Error in map\n");
+		printf("Error in map\n");
 		free(map);
 		exit(1);
 	}

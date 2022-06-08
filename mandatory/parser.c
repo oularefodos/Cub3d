@@ -75,19 +75,19 @@ char	*parsing(char *line, int fd, t_map *map, char *str)
 	count = 0;
 	while (line)
 	{
-		while (line[0] == '\n')
+		while (line[0] == '\n' && count != 7)
 		{
 			free(line);
 			line = get_next_line(fd);
 		}
+		if (count == 6)
+			count++;
 		if (ft_strchr(line, ' ') && count < 6)
 			count += checkline(line, &map);
 		else if (count < 6)
 			handle_err(2, map);
 		if (count == 7)
 			str = free_previous_str(str, line);
-		if (count == 6)
-			count++;
 		free(line);
 		line = get_next_line(fd);
 	}
