@@ -117,7 +117,7 @@ int	check_map(t_map *map, char *str)
 
 	nline = 0;
 	len = maxlen(str, &nline);
-	map->heigth = 1280;
+	map->heigth = 1000;
 	map->width = 1000;
 	map->buf = getmap(str, len, nline);
 	free(str);

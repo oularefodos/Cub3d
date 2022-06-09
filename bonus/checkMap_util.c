@@ -47,7 +47,7 @@ void	check_space(t_map *map, int x, int y)
 {
 	if (map->buf[y][0] == '\n')
 	{
-		perror("Error in map\n");
+		printf("Error in map\n");
 		free_map(map);
 		exit(1);
 	}
@@ -57,7 +57,7 @@ void	check_space(t_map *map, int x, int y)
 				|| (map->buf[y + 1] && ft_pos(map->buf[y + 1][x]))
 				|| (y != 0 && ft_pos(map->buf[y - 1][x])))
 		{
-			perror("Error in map\n");
+			printf("Error in map\n");
 			free_map(map);
 			exit(1);
 		}
@@ -65,7 +65,7 @@ void	check_space(t_map *map, int x, int y)
 	if ((map->buf[y][x] != '1' && map->buf[y][x] != ' ')
 		&& (!map->buf[y][x + 1] || !x || !y || !map->buf[y + 1]))
 	{
-		perror("Error in map\n");
+		printf("Error in map\n");
 		free_map(map);
 		exit(1);
 	}
@@ -84,7 +84,7 @@ int	check_rest(t_map *map, int x, int y)
 				&& map->buf[y][x] != 'E' && map->buf[y][x] != 'S'
 				&& map->buf[y][x] != '1' && map->buf[y][x] != 'P')
 	{
-		perror("Error in map\n");
+		printf("Error in map\n");
 		free_map(map);
 		exit(1);
 	}

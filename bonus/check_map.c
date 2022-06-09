@@ -125,7 +125,7 @@ int	check_map(t_map *map, char *str)
 	free(str);
 	if (find_error(map))
 	{
-		perror("Error: invalid map\n");
+		printf("Error: invalid map\n");
 		free(map);
 		exit(0);
 	}
