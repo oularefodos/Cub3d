@@ -1,7 +1,7 @@
 NAME = cub3D
 INCLUDE = cub3d.h
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror ./minilibx_opengl_20191021/libmlx.a -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror -g ./minilibx_opengl_20191021/libmlx.a -lmlx -framework OpenGL -framework AppKit
 
 SRCS = main.c textures.c bnsutil.c ft_utils.c textutls.c raycaster.c checkMap_util.c movments.c rayCaster_util.c keys.c free.c get_next_line.c get_next_line_utils.c util.c parser.c utils2.c check_map.c
 

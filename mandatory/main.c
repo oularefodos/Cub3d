@@ -82,14 +82,14 @@ int	main(int ac, char **av)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
-	if (!map)
-		return (0);
 	if (ac != 2)
 	{
 		printf("Error arguments/n");
-		exit(1);
+		return (1);
 	}
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		return (0);
 	boot_cub3d(av, map);
 	map->mlx = mlx_init();
 	map->win = mlx_new_window(map->mlx, map->width, map->heigth, "CUB-3D");

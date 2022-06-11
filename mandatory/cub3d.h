@@ -171,4 +171,5 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *str, int c);
 int		ft_close(t_map *map);
 int		convert_rgb(char *str);
+void	free_str(char **str);
 #endif

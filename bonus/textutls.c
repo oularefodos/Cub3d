@@ -37,6 +37,8 @@ int	draw_tex(t_map *map)
 		map->tex[i].img = mlx_xpm_file_to_image
 			(map->mlx, map->texinfo.p[i],
 				&map->tex[i].width, &map->tex[i].height);
+		if (i != 4)
+			free(map->texinfo.p[i]);
 		if (!map->tex[i].img)
 			return (free_window_tex(map));
 		map->tex[i].addr = (int *)mlx_get_data_addr

@@ -12,23 +12,33 @@
 
 #include "cub3d.h"
 
+void	free_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
+}
+
 void	free_map(t_map *map)
 {
 	int	i;
 
 	i = -1;
 	if (map->element.ea)
-		free (map->element.ea);
+		free_str(map->element.ea);
 	if (map->element.we)
-		free (map->element.we);
+		free_str(map->element.we);
 	if (map->element.so)
-		free (map->element.so);
+		free_str(map->element.so);
 	if (map->element.no)
-		free (map->element.no);
+		free_str(map->element.no);
 	if (map->element.f)
-		free (map->element.f);
+		free_str(map->element.f);
 	if (map->element.c)
-		free (map->element.c);
+		free_str(map->element.c);
 	while (map->buf && map->buf[++i])
 		free(map->buf[i]);
 	if (map->buf)
@@ -38,6 +48,11 @@ void	free_map(t_map *map)
 
 void	free_window(t_map *map)
 {
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		mlx_destroy_image(map->mlx, map->tex[i++].img);
 	if (map->img)
 		mlx_destroy_image(map->mlx, map->img);
 	if (map->win)
